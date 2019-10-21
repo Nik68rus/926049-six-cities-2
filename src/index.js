@@ -9,8 +9,10 @@ const init = () => {
     {title: `Nice, cozy, warm big bed apartment`},
   ];
 
+  const clickHandler = () => {};
+
   ReactDOM.render(
-      <App adverts={cards} />,
+      <App adverts={cards} clickHandler={clickHandler} />,
       document.querySelector(`#root`)
   );
 };

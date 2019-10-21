@@ -1,5 +1,5 @@
 const Card = (props) => {
-  const {title} = props;
+  const {title, clickHandler} = props;
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">
@@ -29,7 +29,7 @@ const Card = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name" onClick={clickHandler}>
           <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">Apartment</p>
@@ -40,6 +40,7 @@ const Card = (props) => {
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
+  clickHandler: PropTypes.func.isRequired,
 };
 
 export default Card;

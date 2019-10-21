@@ -1,7 +1,7 @@
 import Card from "../card/card";
 
 const MainScreen = (props) => {
-  const {cards} = props;
+  const {cards, clickHandler} = props;
   return <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -86,7 +86,7 @@ const MainScreen = (props) => {
             </form>
             <div className="cities__places-list places__list tabs__content">
               {
-                cards.map((card) => card.title).map((title, i) => <Card key={title + i} title={title} />)
+                cards.map((card) => card.title).map((title, i) => <Card key={title + i} title={title} clickHandler={clickHandler}/>)
               }
             </div>
           </section>
@@ -100,7 +100,8 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  clickHandler: PropTypes.func.isRequired,
 };
 
 export default MainScreen;
