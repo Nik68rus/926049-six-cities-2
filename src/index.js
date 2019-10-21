@@ -1,10 +1,16 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import App from "./components/app/app";
 
 const init = () => {
+  const cards = [
+    {title: `Beautiful luxurious apartment at great location`},
+    {title: `Wood and stone place`},
+    {title: `Canal View Prinsengracht`},
+    {title: `Nice, cozy, warm big bed apartment`},
+  ];
+
   ReactDOM.render(
-      <App />,
+      <App adverts={cards} />,
       document.querySelector(`#root`)
   );
 };
