@@ -1,18 +1,13 @@
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
+import {offers} from './mock/offers';
+
 
 const init = () => {
-  const cards = [
-    {title: `Beautiful luxurious apartment at great location`},
-    {title: `Wood and stone place`},
-    {title: `Canal View Prinsengracht`},
-    {title: `Nice, cozy, warm big bed apartment`},
-  ];
-
   const clickHandler = () => {};
 
   ReactDOM.render(
-      <App adverts={cards} clickHandler={clickHandler} />,
+      <App offers={offers} clickHandler={clickHandler} />,
       document.querySelector(`#root`)
   );
 };

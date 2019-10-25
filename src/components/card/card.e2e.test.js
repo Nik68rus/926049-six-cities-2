@@ -1,20 +1,28 @@
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import Card from '../card/card';
 
-Enzyme.configure({adapter: new Adapter()});
+it(`Correct info in callback then mouse enters card`, () => {
+  const mockOffer = {
+    title: ``,
+    picture: ``,
+    type: ``,
+    price: 0,
+    rate: 0,
+    isBookmarked: false,
+    isPremium: false,
+  };
 
-it(`Title click action called once`, () => {
-  const clickHandler = jest.fn();
+  const mouseHandler = jest.fn();
 
   const card = shallow(
       <Card
-        title={``}
-        clickHandler={clickHandler}
+        offer={mockOffer}
+        id={0}
+        mouseEnterHandler={mouseHandler}
       />
   );
 
-  const title = card.find(`h2`);
-  title.simulate(`click`);
-  expect(clickHandler).toHaveBeenCalledTimes(1);
+  const cardNode = card.find(`article`);
+  cardNode.simulate(`mouseEnter`);
+  expect(mouseHandler).toHaveBeenCalledWith(0);
 });

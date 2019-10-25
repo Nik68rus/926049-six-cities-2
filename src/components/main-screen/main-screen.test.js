@@ -4,7 +4,7 @@ import MainScreen from '../main-screen/main-screen';
 it(`Main screen correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<MainScreen
-      cards={[]}
+      offers={[]}
       clickHandler={()=>{}}
     />)
   .toJSON();
