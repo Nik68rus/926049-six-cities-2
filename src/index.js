@@ -4,10 +4,8 @@ import {offers} from './mock/offers';
 
 
 const init = () => {
-  const clickHandler = () => {};
-
   ReactDOM.render(
-      <App offers={offers} clickHandler={clickHandler} />,
+      <App offers={offers} />,
       document.querySelector(`#root`)
   );
 };
