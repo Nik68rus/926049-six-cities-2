@@ -5,7 +5,7 @@ it(`Main screen correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<MainScreen
       offers={[]}
-      clickHandler={()=>{}}
+      titleClickHandler={()=>{}}
     />)
   .toJSON();
 

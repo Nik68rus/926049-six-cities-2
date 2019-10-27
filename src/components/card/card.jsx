@@ -1,17 +1,17 @@
 import {makeFirstCharCapital} from '../../util';
 
 const Card = (props) => {
-  const {offer, id, mouseEnterHandler} = props;
+  const {offer, id, mouseEnterHandler, titleClickHandler} = props;
   const {title, picture, type, price, rate, isBookmarked, isPremium} = offer;
+
+  const bookmarkCard = (bookmark) => {
+    return bookmark ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
+  };
 
   const cardMark = (mark) => {
     return mark ? <div className="place-card__mark">
       <span>Premium</span>
     </div> : ``;
-  };
-
-  const bookmarkCard = (bookmark) => {
-    return bookmark ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
   };
 
   return (
@@ -42,7 +42,7 @@ const Card = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <a href={`/details-${id}`} onClick={() => titleClickHandler(id)}>{title}</a>
         </h2>
         <p className="place-card__type">{makeFirstCharCapital(type)}</p>
       </div>
@@ -62,6 +62,7 @@ Card.propTypes = {
   }).isRequired,
   id: PropTypes.number.isRequired,
   mouseEnterHandler: PropTypes.func.isRequired,
+  titleClickHandler: PropTypes.func.isRequired,
 };
 
 export default Card;

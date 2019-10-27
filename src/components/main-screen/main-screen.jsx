@@ -7,7 +7,7 @@ export default class MainScreen extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, titleClickHandler} = this.props;
     return <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
@@ -90,7 +90,7 @@ export default class MainScreen extends PureComponent {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList offers={offers} titleClickHandler={titleClickHandler}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -104,5 +104,5 @@ export default class MainScreen extends PureComponent {
 
 MainScreen.propTypes = {
   offers: PropTypes.array.isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  titleClickHandler: PropTypes.func.isRequired,
 };

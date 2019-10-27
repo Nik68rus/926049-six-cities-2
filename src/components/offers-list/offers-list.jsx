@@ -13,10 +13,10 @@ export default class OffersList extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, titleClickHandler} = this.props;
     return <div className="cities__places-list places__list tabs__content">
       {
-        offers.map((offer, i) => <Card key={offer.title + i} offer={offer} id={i} mouseEnterHandler={this._offerMouseEnterHandler}/>)
+        offers.map((offer, i) => <Card key={offer.title + i} offer={offer} id={i} mouseEnterHandler={this._offerMouseEnterHandler} titleClickHandler={titleClickHandler}/>)
       }
     </div>;
   }
@@ -33,5 +33,6 @@ export default class OffersList extends PureComponent {
 
 OffersList.propTypes = {
   offers: PropTypes.array.isRequired,
+  titleClickHandler: PropTypes.func.isRequired,
 };
 

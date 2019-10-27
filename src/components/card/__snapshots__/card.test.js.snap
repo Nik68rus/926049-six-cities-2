@@ -87,7 +87,8 @@ exports[`Card correctly renders after relaunch 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/details-0"
+        onClick={[Function]}
       >
         
       </a>

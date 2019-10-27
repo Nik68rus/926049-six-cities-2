@@ -1,9 +1,9 @@
 import renderer from 'react-test-renderer';
-import Card from '../card/card';
+import OfferDetails from '../offer-details/offer-details';
 
-it(`Card correctly renders after relaunch`, () => {
+it(`Offer details correctly renders after relaunch`, () => {
   const tree = renderer
-    .create(<Card
+    .create(<OfferDetails
       offer={{
         title: ``,
         picture: ``,
@@ -13,9 +13,6 @@ it(`Card correctly renders after relaunch`, () => {
         isBookmarked: false,
         isPremium: false,
       }}
-      id={0}
-      mouseEnterHandler={()=>{}}
-      titleClickHandler={()=>{}}
     />)
   .toJSON();
 
