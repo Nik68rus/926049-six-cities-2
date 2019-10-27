@@ -1,11 +1,10 @@
 import renderer from 'react-test-renderer';
-import App from '../app/app';
+import OffersList from '../offers-list/offers-list';
 
-it(`App correctly renders after relaunch`, () => {
+it(`Offers list correctly renders after relaunch`, () => {
   const tree = renderer
-    .create(<App
+    .create(<OffersList
       offers={[]}
-      clickHandler={()=>{}}
     />)
   .toJSON();
 
