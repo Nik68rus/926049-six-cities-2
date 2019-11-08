@@ -19,6 +19,7 @@ rules:
 
 globals:
   PropTypes: true
+  React: true
 
 settings:
   react:

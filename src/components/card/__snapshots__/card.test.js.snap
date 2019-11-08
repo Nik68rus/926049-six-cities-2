@@ -88,7 +88,6 @@ exports[`Card correctly renders after relaunch 1`] = `
     >
       <a
         href="/details-0"
-        onClick={[Function]}
       >
         
       </a>

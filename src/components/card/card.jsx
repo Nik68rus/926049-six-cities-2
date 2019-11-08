@@ -1,7 +1,7 @@
 import {makeFirstCharCapital} from '../../util';
 
 const Card = (props) => {
-  const {offer, id, mouseEnterHandler, titleClickHandler} = props;
+  const {offer, id, mouseEnterHandler, mouseLeaveHandler} = props;
   const {title, picture, type, price, rate, isBookmarked, isPremium} = offer;
 
   const bookmarkCard = (bookmark) => {
@@ -15,7 +15,7 @@ const Card = (props) => {
   };
 
   return (
-    <article className="cities__place-card place-card" id={id} onMouseEnter={() => mouseEnterHandler(id)}>
+    <article className="cities__place-card place-card" id={id} onMouseEnter={() => mouseEnterHandler(id)} onMouseLeave={() => mouseLeaveHandler()}>
       {cardMark(isPremium)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
@@ -42,7 +42,7 @@ const Card = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`/details-${id}`} onClick={() => titleClickHandler(id)}>{title}</a>
+          <a href={`/details-${id}`}>{title}</a>
         </h2>
         <p className="place-card__type">{makeFirstCharCapital(type)}</p>
       </div>
@@ -62,7 +62,7 @@ Card.propTypes = {
   }).isRequired,
   id: PropTypes.number.isRequired,
   mouseEnterHandler: PropTypes.func.isRequired,
-  titleClickHandler: PropTypes.func.isRequired,
+  mouseLeaveHandler: PropTypes.func.isRequired,
 };
 
 export default Card;

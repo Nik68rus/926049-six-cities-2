@@ -1,14 +1,12 @@
 import MainScreen from '../main-screen/main-screen';
 import OfferDetails from '../offer-details/offer-details';
-import React from 'react';
 
 const getPageScreen = (props) => {
   const {offers} = props;
-  const titleClickHandler = () => {};
 
   switch (location.pathname) {
     case `/`:
-      return <MainScreen offers={offers} titleClickHandler={titleClickHandler} />;
+      return <MainScreen offers={offers}/>;
     case location.pathname:
       return <OfferDetails offer={offers[location.pathname.split(`-`)[1]]} />;
   }
@@ -16,7 +14,7 @@ const getPageScreen = (props) => {
 };
 
 const App = (props) => {
-  return <React.Fragment>{getPageScreen(props)}</React.Fragment>;
+  return <>{getPageScreen(props)}</>;
 };
 
 App.propTypes = {
