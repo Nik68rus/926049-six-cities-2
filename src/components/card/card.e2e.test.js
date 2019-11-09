@@ -5,6 +5,7 @@ it(`Correct info in callback then mouse enters card`, () => {
   const mockOffer = {
     id: 0,
     title: ``,
+    coords: [0, 0],
     picture: ``,
     type: ``,
     price: 0,

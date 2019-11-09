@@ -1,13 +1,14 @@
 import renderer from 'react-test-renderer';
-import OfferDetails from '../offer-details/offer-details';
+import Map from '../map/map';
 
-it(`Offer details correctly renders after relaunch`, () => {
+it(`Map correctly renders after relaunch`, () => {
   const div = document.createElement(`div`);
   div.id = `map`;
   document.body.appendChild(div);
-  const tree = renderer
-    .create(<OfferDetails
-      offer={{
+
+  const map = renderer
+    .create(<Map
+      offers={[{
         id: 0,
         title: ``,
         coords: [0, 0],
@@ -17,9 +18,9 @@ it(`Offer details correctly renders after relaunch`, () => {
         rate: 0,
         isBookmarked: false,
         isPremium: false,
-      }}
+      }]}
     />)
   .toJSON();
 
-  expect(tree).toMatchSnapshot();
+  expect(map).toMatchSnapshot();
 });
