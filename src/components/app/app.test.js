@@ -5,7 +5,6 @@ it(`App correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<App
       offers={[]}
-      titleClickHandler={()=>{}}
     />)
   .toJSON();
 

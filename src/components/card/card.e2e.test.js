@@ -3,6 +3,7 @@ import Card from '../card/card';
 
 it(`Correct info in callback then mouse enters card`, () => {
   const mockOffer = {
+    id: 0,
     title: ``,
     picture: ``,
     type: ``,
@@ -19,6 +20,7 @@ it(`Correct info in callback then mouse enters card`, () => {
         offer={mockOffer}
         id={0}
         mouseEnterHandler={mouseHandler}
+        mouseLeaveHandler={mouseHandler}
       />
   );
 

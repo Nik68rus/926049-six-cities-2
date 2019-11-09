@@ -52,6 +52,7 @@ const Card = (props) => {
 
 Card.propTypes = {
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

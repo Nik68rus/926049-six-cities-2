@@ -2,7 +2,9 @@ import {Type} from '../constants';
 
 export const offers = [
   {
+    id: 0,
     title: `Beautiful & luxurious apartment at great location`,
+    coords: [52.3909553943508, 4.85309666406198],
     picture: `img/apartment-01.jpg`,
     type: Type.APARTMENT,
     price: 150,
@@ -11,7 +13,9 @@ export const offers = [
     isPremium: false,
   },
   {
+    id: 1,
     title: `Wood and stone place`,
+    coords: [52.369553943508, 4.85309666406198],
     picture: `img/room.jpg`,
     type: Type.ROOM,
     price: 80,
@@ -20,7 +24,9 @@ export const offers = [
     isPremium: false,
   },
   {
+    id: 2,
     title: `Canal View Prinsengracht`,
+    coords: [52.3909553943508, 4.929309666406198],
     picture: `img/apartment-03.jpg`,
     type: Type.APARTMENT,
     price: 120,
@@ -29,7 +35,9 @@ export const offers = [
     isPremium: false,
   },
   {
+    id: 3,
     title: `Nice, cozy, warm big bed apartment`,
+    coords: [52.3809553943508, 4.939309666406198],
     picture: `img/apartment-02.jpg`,
     type: Type.APARTMENT,
     price: 200,

@@ -16,7 +16,7 @@ export default class OffersList extends React.PureComponent {
     const {offers} = this.props;
     return <div className="cities__places-list places__list tabs__content">
       {
-        offers.map((offer, i) => <Card key={offer.title + i} offer={offer} id={i} mouseEnterHandler={this._offerMouseEnterHandler} mouseLeaveHandler={this._offerMouseLeaveHandler}/>)
+        offers.map((offer, i) => <Card key={offer.id} offer={offer} id={i} mouseEnterHandler={this._offerMouseEnterHandler} mouseLeaveHandler={this._offerMouseLeaveHandler}/>)
       }
     </div>;
   }
