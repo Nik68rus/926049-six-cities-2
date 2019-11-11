@@ -1,11 +1,10 @@
 import renderer from 'react-test-renderer';
 import Map from '../map/map';
 
-it(`Map correctly renders after relaunch`, () => {
-  const div = document.createElement(`div`);
-  div.id = `map`;
-  document.body.appendChild(div);
+const createNodeMock = () => document.createElement(`div`);
 
+it(`Map correctly renders after relaunch`, () => {
+  const options = {createNodeMock};
   const map = renderer
     .create(<Map
       offers={[{
@@ -19,7 +18,7 @@ it(`Map correctly renders after relaunch`, () => {
         isBookmarked: false,
         isPremium: false,
       }]}
-    />)
+    />, options)
   .toJSON();
 
   expect(map).toMatchSnapshot();

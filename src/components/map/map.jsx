@@ -9,32 +9,44 @@ export default class Map extends React.PureComponent {
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
     });
+    this._mapRef = React.createRef();
+    this._map = null;
   }
 
   render() {
-    return <div id="map" style={{height: 100 + `%`}}></div>;
+    return <div id="map" style={{height: 100 + `%`}} ref={this._mapRef}></div>;
   }
 
-  componentDidMount() {
-    const {offers} = this.props;
-    this._map = leaflet.map(`map`, {
+  _mapInit(offersList, container) {
+    this._map = leaflet.map(container, {
       center: this._city,
       zoom: this._zoom,
       zoomControl: false,
       marker: true
     });
-    this._map.setView(this._city, this._zoom);
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
-      .addTo(this._map);
-    offers
+    this._renderLayer();
+    if (offersList) {
+      offersList
       .forEach((offer) => {
         leaflet
         .marker(offer.coords, {icon: this._icon})
         .addTo(this._map);
       });
+    }
+    this._map.setView(this._city, this._zoom);
+  }
+
+  _renderLayer() {
+    leaflet
+    .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+    })
+    .addTo(this._map);
+  }
+
+  componentDidMount() {
+    const {offers} = this.props;
+    this._mapInit(offers, this._mapRef.current);
   }
 }
 
