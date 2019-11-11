@@ -5,6 +5,7 @@ it(`Card correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<Card
       offer={{
+        id: 0,
         title: ``,
         picture: ``,
         type: ``,
@@ -15,7 +16,7 @@ it(`Card correctly renders after relaunch`, () => {
       }}
       id={0}
       mouseEnterHandler={()=>{}}
-      titleClickHandler={()=>{}}
+      mouseLeaveHandler={()=>{}}
     />)
   .toJSON();
 

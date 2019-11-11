@@ -5,7 +5,6 @@ it(`Offers list correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<OffersList
       offers={[]}
-      titleClickHandler={() => {}}
     />)
   .toJSON();
 
