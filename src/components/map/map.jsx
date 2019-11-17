@@ -1,6 +1,7 @@
 import leaflet from 'leaflet';
+import {connect} from 'react-redux';
 
-export default class Map extends React.PureComponent {
+class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this._city = [52.38333, 4.9];
@@ -17,7 +18,9 @@ export default class Map extends React.PureComponent {
     return <div id="map" style={{height: 100 + `%`}} ref={this._mapRef}></div>;
   }
 
-  _mapInit(offersList, container) {
+  _mapInit(currentCity, offersList, container) {
+    // this._city = location.latLng;
+    // this._zoom = location.zoom;
     this._map = leaflet.map(container, {
       center: this._city,
       zoom: this._zoom,
@@ -45,15 +48,31 @@ export default class Map extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {offers} = this.props;
-    this._mapInit(offers, this._mapRef.current);
+    const {city, offers} = this.props;
+    this._mapInit(city, offers, this._mapRef.current);
   }
 }
 
 Map.propTypes = {
+  city: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    latLng: PropTypes.array.isRequired,
+    zoom: PropTypes.number.isRequired,
+  }).isRequired,
   offers: PropTypes.arrayOf(
       PropTypes.shape({
         coords: PropTypes.array.isRequired
       })
   ),
 };
+
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  city: state.city,
+  offers: state.offers,
+  location: state.location,
+});
+
+export {Map};
+
+export default connect(mapStateToProps)(Map);
+
