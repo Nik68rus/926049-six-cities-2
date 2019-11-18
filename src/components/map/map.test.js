@@ -1,13 +1,20 @@
 import renderer from 'react-test-renderer';
-import Map from '../map/map';
+import {Map} from '../map/map';
+
+const createNodeMock = () => document.createElement(`div`);
 
 it(`Map correctly renders after relaunch`, () => {
-  const div = document.createElement(`div`);
-  div.id = `map`;
-  document.body.appendChild(div);
-
+  const options = {createNodeMock};
   const map = renderer
     .create(<Map
+      city={{
+        name: ``,
+        location: {
+          latitude: 0,
+          longtitude: 0,
+          zoom: 0,
+        }
+      }}
       offers={[{
         id: 0,
         title: ``,
@@ -19,7 +26,7 @@ it(`Map correctly renders after relaunch`, () => {
         isBookmarked: false,
         isPremium: false,
       }]}
-    />)
+    />, options)
   .toJSON();
 
   expect(map).toMatchSnapshot();

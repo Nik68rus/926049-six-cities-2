@@ -6,7 +6,7 @@ const getPageScreen = (props) => {
 
   switch (location.pathname) {
     case `/`:
-      return <MainScreen offers={offers}/>;
+      return <MainScreen />;
     case location.pathname:
       return <OfferDetails offer={offers[location.pathname.split(`-`)[1]]} />;
   }
