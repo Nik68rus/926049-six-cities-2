@@ -2,10 +2,14 @@ import {offers} from './mock/offers';
 import {CITIES} from './mock/cities';
 import {getAverage} from './util';
 
-const DEFAULT_CITY = CITIES[0];
+export const DEFAULT_CITY = CITIES[0];
 const DEFAULT_ZOOM = 12;
+export const ActionType = {
+  CHANGE_CITY: `CHANGE_CITY`,
+  GET_OFFERS: `GET_OFFERS`,
+};
 
-const getCityOffers = (allOffers, city) => {
+export const getCityOffers = (allOffers, city) => {
   return allOffers.filter((offer) => offer.city.name === city);
 };
 
@@ -18,7 +22,7 @@ const getCityLocation = (name, allOffers) => {
   };
 };
 
-const getCities = (allOffers) => {
+export const getCities = (allOffers) => {
   const cityNames = [...new Set(allOffers.map((offer) => offer.city.name))];
   const cities = cityNames.map((city) => {
     return {
@@ -38,11 +42,11 @@ const initialState = {
 
 export const ActionCreator = {
   changeCity: (city) => ({
-    type: `CHANGE_CITY`,
+    type: ActionType.CHANGE_CITY,
     payload: city,
   }),
   getOffers: (city) => ({
-    type: `GET_OFFERS`,
+    type: ActionType.GET_OFFERS,
     payload: getCityOffers(offers, city.name),
   }),
 };

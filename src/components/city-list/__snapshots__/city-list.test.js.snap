@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`City list correctly renders after relaunch 1`] = `
+<ul
+  className="locations__list tabs__list"
+/>
+`;

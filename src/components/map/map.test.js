@@ -1,5 +1,5 @@
 import renderer from 'react-test-renderer';
-import Map from '../map/map';
+import {Map} from '../map/map';
 
 const createNodeMock = () => document.createElement(`div`);
 
@@ -7,6 +7,14 @@ it(`Map correctly renders after relaunch`, () => {
   const options = {createNodeMock};
   const map = renderer
     .create(<Map
+      city={{
+        name: ``,
+        location: {
+          latitude: 0,
+          longtitude: 0,
+          zoom: 0,
+        }
+      }}
       offers={[{
         id: 0,
         title: ``,
