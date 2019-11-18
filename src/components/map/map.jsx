@@ -4,14 +4,13 @@ import {connect} from 'react-redux';
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-    this._city = [52.38333, 4.9];
-    this._zoom = 12;
     this._icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
     });
     this._mapRef = React.createRef();
     this._map = null;
+    this._markers = [];
   }
 
   render() {
@@ -19,27 +18,43 @@ class Map extends React.PureComponent {
   }
 
   _mapInit(currentCity, offersList, container) {
-    // this._city = location.latLng;
-    // this._zoom = location.zoom;
+    this._city = [currentCity.location.latitude, currentCity.location.longtitude];
+    this._zoom = currentCity.location.zoom;
+
     this._map = leaflet.map(container, {
       center: this._city,
       zoom: this._zoom,
       zoomControl: false,
       marker: true
     });
-    this._renderLayer();
-    if (offersList) {
-      offersList
-      .forEach((offer) => {
-        leaflet
-        .marker(offer.coords, {icon: this._icon})
-        .addTo(this._map);
-      });
-    }
+    this._renderTitleLayer();
+    this._renderOffers(offersList);
     this._map.setView(this._city, this._zoom);
   }
 
-  _renderLayer() {
+  _renderOffers(offers) {
+    if (this._markers.length > 0) {
+      this._removeOffers();
+    }
+    if (offers) {
+      offers
+      .forEach((offer) => {
+        this._offerMarker = leaflet
+          .marker(offer.coords, {icon: this._icon})
+          .addTo(this._map);
+        this._markers.push(this._offerMarker);
+      });
+    }
+  }
+
+  _removeOffers() {
+    this._markers.forEach((marker) => {
+      this._map.removeLayer(marker);
+    });
+    this._markers = [];
+  }
+
+  _renderTitleLayer() {
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -51,13 +66,22 @@ class Map extends React.PureComponent {
     const {city, offers} = this.props;
     this._mapInit(city, offers, this._mapRef.current);
   }
+
+  componentDidUpdate() {
+    const {city, offers} = this.props;
+    this._renderOffers(offers);
+    this._map.setView([city.location.latitude, city.location.longtitude], city.location.zoom);
+  }
 }
 
 Map.propTypes = {
-  city: PropTypes.string.isRequired,
-  location: PropTypes.shape({
-    latLng: PropTypes.array.isRequired,
-    zoom: PropTypes.number.isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longtitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired
   }).isRequired,
   offers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -68,8 +92,7 @@ Map.propTypes = {
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   city: state.city,
-  offers: state.offers,
-  location: state.location,
+  offers: state.cityOffers,
 });
 
 export {Map};

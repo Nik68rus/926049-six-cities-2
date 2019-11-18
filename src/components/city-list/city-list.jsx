@@ -5,12 +5,12 @@ const CityList = (props) => {
   const {currentCity, cities, changeCityClickHandler} = props;
   return <ul className="locations__list tabs__list">
     {cities.map((city) => (
-      <li className="locations__item" key={`city-${city}`}>
+      <li className="locations__item" key={`city-${city.name}`}>
         <a
-          className={`locations__item-link tabs__item ${city === currentCity && `tabs__item--active`}`}
+          className={`locations__item-link tabs__item ${city.name === currentCity.name && `tabs__item--active`}`}
           href="#"
           onClick={() => changeCityClickHandler(city)}>
-          <span>{city}</span>
+          <span>{city.name}</span>
         </a>
       </li>
     )
@@ -19,15 +19,22 @@ const CityList = (props) => {
 };
 
 CityList.propTypes = {
-  currentCity: PropTypes.string.isRequired,
+  currentCity: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longtitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
   cities: PropTypes.array.isRequired,
   changeCityClickHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.city,
-  offers: state.offers,
-  cities: state.cityNames,
+  offers: state.cityOffers,
+  cities: state.cities,
 });
 
 const mapDispatchToProps = (dispatch) => ({

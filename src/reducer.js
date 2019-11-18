@@ -1,28 +1,39 @@
 import {offers} from './mock/offers';
-import {CITIES} from './constants';
+import {CITIES} from './mock/cities';
+import {getAverage} from './util';
 
-const DEFAULT_CITY = `Amsterdam`;
+const DEFAULT_CITY = CITIES[0];
+const DEFAULT_ZOOM = 12;
 
-const getCityLocation = (city) => {
-  const currentCity = CITIES.find((it) => it.name === city);
-  console.log(currentCity);
+const getCityOffers = (allOffers, city) => {
+  return allOffers.filter((offer) => offer.city.name === city);
+};
+
+const getCityLocation = (name, allOffers) => {
+  const cityOffers = getCityOffers(allOffers, name);
   return {
-    latLng: [parseFloat(currentCity.location.latitude), parseFloat(currentCity.location.longtitude)],
-    zoom: currentCity.location.zoom,
+    latitude: getAverage(cityOffers.map((offer) => offer.coords[0])),
+    longtitude: getAverage(cityOffers.map((offer) => offer.coords[1])),
+    zoom: DEFAULT_ZOOM,
   };
 };
 
-const getCityOffers = (allOffers, city) => {
-  console.log(getCityLocation(DEFAULT_CITY));
-  return allOffers.filter((offer) => offer.city.name === city);
+const getCities = (allOffers) => {
+  const cityNames = [...new Set(allOffers.map((offer) => offer.city.name))];
+  const cities = cityNames.map((city) => {
+    return {
+      name: city,
+      location: getCityLocation(city, allOffers),
+    };
+  });
+  return cities;
 };
 
 const initialState = {
   city: DEFAULT_CITY,
-  location: getCityLocation(DEFAULT_CITY),
-  offers: getCityOffers(offers, DEFAULT_CITY),
+  cityOffers: getCityOffers(offers, DEFAULT_CITY.name),
   allOffers: offers,
-  cityNames: [...new Set(offers.map((offer) => offer.city.name))],
+  cities: getCities(offers),
 };
 
 export const ActionCreator = {
@@ -32,7 +43,7 @@ export const ActionCreator = {
   }),
   getOffers: (city) => ({
     type: `GET_OFFERS`,
-    payload: getCityOffers(offers, city),
+    payload: getCityOffers(offers, city.name),
   }),
 };
 
@@ -41,7 +52,7 @@ export const reducer = (state = initialState, action) => {
     case `CHANGE_CITY`:
       return Object.assign({}, state, {city: action.payload});
     case `GET_OFFERS`:
-      return Object.assign({}, state, {offers: action.payload});
+      return Object.assign({}, state, {cityOffers: action.payload});
   }
 
   return state;
