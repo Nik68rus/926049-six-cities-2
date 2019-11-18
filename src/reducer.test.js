@@ -168,4 +168,22 @@ describe(`Reducer works correctly`, () => {
       cities: getCities(offers),
     });
   });
+
+
+  it(`Reducer should correctly change state`, () => {
+    expect(reducer({
+      city: DEFAULT_CITY,
+      cityOffers: getCityOffers(offers, CITIES[1].name),
+      allOffers: offers,
+      cities: getCities(offers),
+    }, {
+      type: ActionType.CHANGE_CITY,
+      payload: CITIES[1],
+    })).toEqual({
+      city: CITIES[1],
+      cityOffers: getCityOffers(offers, CITIES[1].name),
+      allOffers: offers,
+      cities: getCities(offers),
+    });
+  });
 });
