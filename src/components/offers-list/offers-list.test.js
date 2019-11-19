@@ -5,6 +5,8 @@ it(`Offers list correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<OffersList
       offers={[]}
+      mouseEnterHandler={jest.fn}
+      mouseLeaveHandler={jest.fn}
     />)
   .toJSON();
 
