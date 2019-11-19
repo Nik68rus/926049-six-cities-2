@@ -2,6 +2,9 @@ import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
+import withActiveItem from '../../hocs/with-active-item';
+
+const OffersListWrapped = withActiveItem(OffersList);
 
 const MainScreen = (props) => {
   const {city, offers} = props;
@@ -56,7 +59,7 @@ const MainScreen = (props) => {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <OffersList offers={offers}/>
+            <OffersListWrapped offers={offers}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
