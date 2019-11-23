@@ -7,8 +7,8 @@ import withActiveItem from '../../hocs/with-active-item';
 const OffersListWrapped = withActiveItem(OffersList);
 
 const MainScreen = (props) => {
-  const {city, offers} = props;
-  return <div className="page page--gray page--main">
+  const {isOffersLoaded, city, offers} = props;
+  return !isOffersLoaded ? null : <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -76,18 +76,20 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
+  isOffersLoaded: PropTypes.bool.isRequired,
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
-      longtitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired,
     }).isRequired,
-  }).isRequired,
+  }),
   offers: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  isOffersLoaded: state.isOffersLoaded,
   city: state.city,
   offers: state.cityOffers
 });

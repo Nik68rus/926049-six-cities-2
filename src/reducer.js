@@ -1,43 +1,36 @@
-import {offers} from './mock/offers';
-import {CITIES} from './mock/cities';
-import {getAverage} from './util';
+import {api} from './api';
+import Adapter from './adapter';
 
-export const DEFAULT_CITY = CITIES[0];
-const DEFAULT_ZOOM = 12;
 export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFERS: `GET_OFFERS`,
+  LOAD_OFFERS: `LOAD_OFFERS`,
 };
 
 export const getCityOffers = (allOffers, city) => {
-  return allOffers.filter((offer) => offer.city.name === city);
+  return allOffers.filter((offer) => offer.city.name === city.name);
 };
 
-const getCityLocation = (name, allOffers) => {
-  const cityOffers = getCityOffers(allOffers, name);
-  return {
-    latitude: getAverage(cityOffers.map((offer) => offer.coords[0])),
-    longtitude: getAverage(cityOffers.map((offer) => offer.coords[1])),
-    zoom: DEFAULT_ZOOM,
-  };
+const getCityLocation = (offers, cityName) => {
+  return offers.find((offer) => offer.city.name === cityName).city.location;
 };
 
 export const getCities = (allOffers) => {
   const cityNames = [...new Set(allOffers.map((offer) => offer.city.name))];
-  const cities = cityNames.map((city) => {
+  return cityNames.map((cityName) => {
     return {
-      name: city,
-      location: getCityLocation(city, allOffers),
+      name: cityName,
+      location: getCityLocation(allOffers, cityName),
     };
   });
-  return cities;
 };
 
 const initialState = {
-  city: DEFAULT_CITY,
-  cityOffers: getCityOffers(offers, DEFAULT_CITY.name),
-  allOffers: offers,
-  cities: getCities(offers),
+  city: null,
+  cityOffers: [],
+  allOffers: [],
+  cities: [],
+  isOffersLoaded: false,
 };
 
 export const ActionCreator = {
@@ -45,10 +38,29 @@ export const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  getOffers: (city) => ({
+
+  getOffers: (allOffers, city) => ({
     type: ActionType.GET_OFFERS,
-    payload: getCityOffers(offers, city.name),
+    payload: getCityOffers(allOffers, city),
   }),
+
+  loadOffers: (loadedOffers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: loadedOffers,
+  }),
+};
+export const Operation = {
+  loadOffers: () => (dispatch) => {
+    return api.get(`/hotels`)
+        .then((response) => {
+          dispatch(ActionCreator.loadOffers(response.data));
+        });
+    // return fetch(`https://htmlacademy-react-2.appspot.com/six-cities/hotels`)
+    //     .then((response) => response.json())
+    //     .then((loadedOffers) => {
+    //       dispatch(ActionCreator.loadOffers(loadedOffers));
+    //     });
+  },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -57,6 +69,15 @@ export const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {city: action.payload});
     case `GET_OFFERS`:
       return Object.assign({}, state, {cityOffers: action.payload});
+    case `LOAD_OFFERS`:
+      const adoptedPayload = Adapter.getOffers(action.payload);
+      return Object.assign({}, state, {
+        allOffers: adoptedPayload,
+        city: adoptedPayload[0].city,
+        cityOffers: getCityOffers(adoptedPayload, adoptedPayload[0].city),
+        cities: getCities(adoptedPayload),
+        isOffersLoaded: true,
+      });
   }
 
   return state;
