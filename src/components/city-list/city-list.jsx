@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action/action-creator';
-import {getCities} from '../../util';
+import {selectCities, selectCityOffers} from '../../store/selectors';
 
 const CityList = (props) => {
   const {currentCity, cities, allOffers, changeCityClickHandler} = props;
@@ -35,8 +35,8 @@ CityList.propTypes = {
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.user.city,
-  offers: state.user.cityOffers,
-  cities: getCities(state.data.allOffers),
+  offers: selectCityOffers(state),
+  cities: selectCities(state),
   allOffers: state.data.allOffers,
 });
 
