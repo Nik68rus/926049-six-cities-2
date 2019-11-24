@@ -16,7 +16,10 @@ const getPageScreen = (props) => {
 };
 
 const App = (props) => {
-  props.checkAuth();
+  const {user} = props;
+  if (!user.email) {
+    props.checkAuth();
+  }
   return <>{getPageScreen(props)}</>;
 };
 
