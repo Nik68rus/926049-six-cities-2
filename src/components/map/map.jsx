@@ -91,8 +91,8 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  city: state.city,
-  offers: state.cityOffers,
+  city: state.user.city,
+  offers: state.user.cityOffers,
 });
 
 export {Map};
