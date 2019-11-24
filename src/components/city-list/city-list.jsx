@@ -1,15 +1,16 @@
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../store/action/action-creator';
+import {selectCities, selectCityOffers} from '../../store/selectors';
 
 const CityList = (props) => {
-  const {currentCity, cities, changeCityClickHandler} = props;
+  const {currentCity, cities, allOffers, changeCityClickHandler} = props;
   return <ul className="locations__list tabs__list">
     {cities.map((city) => (
       <li className="locations__item" key={`city-${city.name}`}>
         <a
           className={`locations__item-link tabs__item ${city.name === currentCity.name && `tabs__item--active`}`}
           href="#"
-          onClick={() => changeCityClickHandler(city)}>
+          onClick={() => changeCityClickHandler(allOffers, city)}>
           <span>{city.name}</span>
         </a>
       </li>
@@ -23,24 +24,26 @@ CityList.propTypes = {
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
-      longtitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
   cities: PropTypes.array.isRequired,
+  allOffers: PropTypes.array.isRequired,
   changeCityClickHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currentCity: state.city,
-  offers: state.cityOffers,
-  cities: state.cities,
+  currentCity: state.user.city,
+  offers: selectCityOffers(state),
+  cities: selectCities(state),
+  allOffers: state.data.allOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCityClickHandler: (city) => {
+  changeCityClickHandler: (allOffers, city) => {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
+    dispatch(ActionCreator.getOffers(allOffers, city));
   }
 });
 

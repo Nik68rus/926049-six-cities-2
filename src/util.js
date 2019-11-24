@@ -3,3 +3,7 @@ export const makeFirstCharCapital = (word) => {
 };
 
 export const getAverage = (nums) => nums.reduce((a, b) => (a + b)) / nums.length;
+
+export const getCityOffers = (allOffers, city) => {
+  return allOffers.filter((offer) => offer.city.name === city.name);
+};

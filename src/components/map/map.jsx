@@ -18,7 +18,7 @@ class Map extends React.PureComponent {
   }
 
   _mapInit(currentCity, offersList, container) {
-    this._city = [currentCity.location.latitude, currentCity.location.longtitude];
+    this._city = [currentCity.location.latitude, currentCity.location.longitude];
     this._zoom = currentCity.location.zoom;
 
     this._map = leaflet.map(container, {
@@ -70,7 +70,7 @@ class Map extends React.PureComponent {
   componentDidUpdate() {
     const {city, offers} = this.props;
     this._renderOffers(offers);
-    this._map.setView([city.location.latitude, city.location.longtitude], city.location.zoom);
+    this._map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
   }
 }
 
@@ -79,7 +79,7 @@ Map.propTypes = {
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
-      longtitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired,
     }).isRequired
   }).isRequired,
@@ -91,8 +91,8 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  city: state.city,
-  offers: state.cityOffers,
+  city: state.user.city,
+  offers: state.user.cityOffers,
 });
 
 export {Map};
