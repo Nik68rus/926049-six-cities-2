@@ -1,6 +1,7 @@
 import MainScreen from '../main-screen/main-screen';
 import OfferDetails from '../offer-details/offer-details';
 import {connect} from 'react-redux';
+import {Operation} from '../../store/action/action-creator';
 
 const getPageScreen = (props) => {
   const {offers} = props;
@@ -15,15 +16,32 @@ const getPageScreen = (props) => {
 };
 
 const App = (props) => {
+  props.checkAuth();
   return <>{getPageScreen(props)}</>;
 };
 
 getPageScreen.propTypes = {
   offers: PropTypes.array.isRequired,
+  user: PropTypes.string.isRequired,
+  checkAuth: PropTypes.func.isRequired,
+};
+
+App.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  checkAuth: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  offers: state.allOffers
+  offers: state.data.allOffers,
+  user: state.user.user,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    checkAuth() {
+      dispatch(Operation.checkAuth());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
