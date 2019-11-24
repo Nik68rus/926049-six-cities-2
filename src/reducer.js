@@ -1,4 +1,4 @@
-import {api} from './api';
+import {api} from './index';
 import Adapter from './adapter';
 
 export const ActionType = {
@@ -55,11 +55,6 @@ export const Operation = {
         .then((response) => {
           dispatch(ActionCreator.loadOffers(response.data));
         });
-    // return fetch(`https://htmlacademy-react-2.appspot.com/six-cities/hotels`)
-    //     .then((response) => response.json())
-    //     .then((loadedOffers) => {
-    //       dispatch(ActionCreator.loadOffers(loadedOffers));
-    //     });
   },
 };
 

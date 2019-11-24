@@ -1,5 +1,6 @@
 import MainScreen from '../main-screen/main-screen';
 import OfferDetails from '../offer-details/offer-details';
+import {connect} from 'react-redux';
 
 const getPageScreen = (props) => {
   const {offers} = props;
@@ -17,12 +18,12 @@ const App = (props) => {
   return <>{getPageScreen(props)}</>;
 };
 
-App.propTypes = {
-  offers: PropTypes.array.isRequired,
-};
-
 getPageScreen.propTypes = {
   offers: PropTypes.array.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  offers: state.allOffers
+});
+
+export default connect(mapStateToProps)(App);
