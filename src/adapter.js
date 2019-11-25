@@ -26,4 +26,14 @@ export default class Adapter {
       locationZoom: offer.location.zoom,
     };
   }
+
+  static getUser(user) {
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      avatar: user[`avatar_url`],
+      isPro: user[`is_pro`],
+    };
+  }
 }
