@@ -17,7 +17,7 @@ const getPageScreen = (props) => {
 
 const App = (props) => {
   const {user} = props;
-  if (!user.email) {
+  if (user.email === ``) {
     props.checkAuth();
   }
   return <>{getPageScreen(props)}</>;
@@ -30,7 +30,9 @@ getPageScreen.propTypes = {
 };
 
 App.propTypes = {
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
   checkAuth: PropTypes.func.isRequired,
 };
 

@@ -5,7 +5,13 @@ const initialState = {
   cityOffers: [],
   isUserStateDefined: false,
   isAuthorizationRequired: false,
-  user: {},
+  user: {
+    id: ``,
+    email: ``,
+    name: ``,
+    avatar: ``,
+    isPro: false,
+  },
 };
 
 const reducer = (state = initialState, action) => {

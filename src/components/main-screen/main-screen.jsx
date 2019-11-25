@@ -8,7 +8,7 @@ import SignIn from '../sign-in/sign-in';
 const OffersListWrapped = withActiveItem(OffersList);
 
 const MainScreen = (props) => {
-  const {isAuthorizationRequired, isOffersLoaded, isUserStateDefined, city, offers} = props;
+  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers} = props;
   if (!isOffersLoaded || !isUserStateDefined) {
     return null;
   } else {
@@ -27,7 +27,7 @@ const MainScreen = (props) => {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{user.email === `` ? `Sign In` : user.email}</span>
                   </a>
                 </li>
               </ul>
@@ -83,6 +83,13 @@ const MainScreen = (props) => {
 MainScreen.propTypes = {
   isOffersLoaded: PropTypes.bool.isRequired,
   isUserStateDefined: PropTypes.bool.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    isPro: PropTypes.bool.isRequired,
+  }).isRequired,
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
@@ -96,6 +103,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isAuthorizationRequired: state.user.isAuthorizationRequired,
+  user: state.user.user,
   isOffersLoaded: state.data.isOffersLoaded,
   isUserStateDefined: state.user.isUserStateDefined,
   city: state.user.city,
