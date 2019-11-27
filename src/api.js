@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {ActionCreator} from './store/action/action-creator';
 
-export const createAPI = (dispatch) => {
+export const createAPI = (dispatch, login) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-2.appspot.com/six-cities`,
     timeout: 1000 * 5,
@@ -12,6 +12,7 @@ export const createAPI = (dispatch) => {
   const onFail = (err) => {
     if (err.response.status === 401) {
       dispatch(ActionCreator.requireAuthorization(true));
+      login();
     }
     return err;
   };

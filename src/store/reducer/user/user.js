@@ -4,9 +4,9 @@ const initialState = {
   city: null,
   cityOffers: [],
   isUserStateDefined: false,
-  isAuthorizationRequired: false,
+  isAuthorizationRequired: true,
   user: {
-    id: ``,
+    id: 0,
     email: ``,
     name: ``,
     avatar: ``,

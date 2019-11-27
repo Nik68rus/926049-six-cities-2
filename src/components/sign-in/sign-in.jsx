@@ -1,6 +1,3 @@
-import {connect} from 'react-redux';
-import {Operation} from '../../store/action/action-creator';
-
 class SignIn extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -20,9 +17,10 @@ class SignIn extends React.PureComponent {
   }
 
   _formSubmitHandler(evt) {
-    const {setUserData} = this.props;
+    const {onSubmit, history} = this.props;
     evt.preventDefault();
-    setUserData(this._loginData);
+    onSubmit(this._loginData);
+    history.push(`/`);
   }
 
   render() {
@@ -80,15 +78,10 @@ class SignIn extends React.PureComponent {
 }
 
 SignIn.propTypes = {
-  setUserData: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setUserData: (data) => dispatch(Operation.loginUser(data))
-});
-
-export {SignIn};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

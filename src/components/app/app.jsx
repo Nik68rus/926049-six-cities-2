@@ -1,52 +1,43 @@
 import MainScreen from '../main-screen/main-screen';
-import OfferDetails from '../offer-details/offer-details';
 import {connect} from 'react-redux';
 import {Operation} from '../../store/action/action-creator';
-
-const getPageScreen = (props) => {
-  const {offers} = props;
-
-  switch (location.pathname) {
-    case `/`:
-      return <MainScreen />;
-    case location.pathname:
-      return <OfferDetails offer={offers[location.pathname.split(`-`)[1]]} />;
-  }
-  return null;
-};
+import {Switch, Route, Redirect} from 'react-router-dom';
+import SignIn from '../sign-in/sign-in';
 
 const App = (props) => {
-  const {user} = props;
-  if (user.email === ``) {
-    props.checkAuth();
+  const {setUserData, checkAuth, isAuthorizationRequired} = props;
+  if (isAuthorizationRequired) {
+    checkAuth();
   }
-  return <>{getPageScreen(props)}</>;
-};
-
-getPageScreen.propTypes = {
-  offers: PropTypes.array.isRequired,
-  user: PropTypes.string.isRequired,
-  checkAuth: PropTypes.func.isRequired,
+  return <>
+    <Switch>
+      <Route path="/" exact component={MainScreen} />
+      <Route
+        path="/login" exact
+        render={
+          (compProps) => isAuthorizationRequired ?
+            <SignIn {...compProps} onSubmit={setUserData} /> :
+            <Redirect to="/" />}
+      />
+    </Switch>
+  </>;
 };
 
 App.propTypes = {
-  user: PropTypes.shape({
-    email: PropTypes.string,
-  }).isRequired,
   checkAuth: PropTypes.func.isRequired,
+  setUserData: PropTypes.func.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   offers: state.data.allOffers,
-  user: state.user.user,
+  isAuthorizationRequired: state.user.isAuthorizationRequired,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkAuth() {
-      dispatch(Operation.checkAuth());
-    }
-  };
+const mapDispatchToProps = {
+  checkAuth: Operation.checkAuth,
+  setUserData: (data) => Operation.loginUser(data)
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
