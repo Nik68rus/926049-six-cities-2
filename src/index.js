@@ -7,8 +7,13 @@ import {Operation} from './store/action/action-creator';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
 import {createAPI} from './api';
+import {BrowserRouter} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
 
-export const api = createAPI((...args) => store.dispatch(...args));
+const history = createBrowserHistory();
+const dispatchCB = (...args) => store.dispatch(...args);
+const loginCB = () => history.push(`/login`);
+export const api = createAPI(dispatchCB, loginCB);
 
 const store = createStore(
     reducer,
@@ -23,7 +28,9 @@ store.dispatch(Operation.loadOffers());
 const init = () => {
   ReactDOM.render(
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
   );

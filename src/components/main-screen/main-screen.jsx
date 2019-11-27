@@ -3,7 +3,7 @@ import Map from '../map/map';
 import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
 import withActiveItem from '../../hocs/with-active-item';
-import SignIn from '../sign-in/sign-in';
+import {Link} from 'react-router-dom';
 
 const OffersListWrapped = withActiveItem(OffersList);
 
@@ -12,7 +12,7 @@ const MainScreen = (props) => {
   if (!isOffersLoaded || !isUserStateDefined) {
     return null;
   } else {
-    return isAuthorizationRequired ? <SignIn /> : <div className="page page--gray page--main">
+    return <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -24,11 +24,13 @@ const MainScreen = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <div className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">{user.email === `` ? `Sign In` : user.email}</span>
-                  </a>
+                    <span className="header__user-name user__name">{isAuthorizationRequired ?
+                      <Link to="/login">Sign In</Link> :
+                      <Link to="/favorite">{user.email}</Link>}</span>
+                  </div>
                 </li>
               </ul>
             </nav>
@@ -84,7 +86,7 @@ MainScreen.propTypes = {
   isOffersLoaded: PropTypes.bool.isRequired,
   isUserStateDefined: PropTypes.bool.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     email: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
