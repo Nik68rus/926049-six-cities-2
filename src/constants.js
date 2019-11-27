@@ -2,9 +2,11 @@ export const Level = {
   PREMIUM: `premium`,
 };
 
-export const Type = {
+export const OfferType = {
   APARTMENT: `apartment`,
   ROOM: `private room`,
+  HOUSE: `house`,
+  HOTEL: `hotel`,
 };
 
 export const ActionType = {
@@ -16,3 +18,4 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   SIGN_IN: `SIGN_IN`,
 };
+

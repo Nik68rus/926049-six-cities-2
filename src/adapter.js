@@ -20,10 +20,20 @@ export default class Adapter {
       price: offer.price,
       title: offer.title,
       type: offer.type,
-      rate: offer.rating * 20,
+      rate: offer.rating,
       photos: offer.images,
       coords: [offer.location.latitude, offer.location.longitude],
       locationZoom: offer.location.zoom,
+      description: offer.description,
+      host: {
+        id: offer.host.id,
+        name: offer.host.name,
+        isPro: offer.host[`is_pro`],
+        avatar: offer.host[`avatar_url`],
+      },
+      bedrooms: offer.bedrooms,
+      goods: offer.goods,
+      maxAdults: offer[`max_adults`],
     };
   }
 
