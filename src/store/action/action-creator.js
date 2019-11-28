@@ -37,6 +37,11 @@ const ActionCreator = {
     type: ActionType.SIGN_IN,
     payload: user,
   }),
+
+  changeSorting: (order) => ({
+    type: ActionType.CHANGE_SORTING,
+    payload: order,
+  }),
 };
 
 const Operation = {

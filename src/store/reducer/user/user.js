@@ -1,8 +1,9 @@
-import {ActionType} from '../../../constants';
+import {ActionType, SortType} from '../../../constants';
 
 const initialState = {
   city: null,
   cityOffers: [],
+  sortOrder: SortType.POPULAR,
   isUserStateDefined: false,
   isAuthorizationRequired: true,
   user: {
@@ -26,6 +27,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {isAuthorizationRequired: action.payload});
     case ActionType.SIGN_IN:
       return Object.assign({}, state, {user: action.payload});
+    case ActionType.CHANGE_SORTING:
+      return Object.assign({}, state, {sortOrder: action.payload});
   }
 
   return state;

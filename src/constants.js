@@ -17,9 +17,18 @@ export const ActionType = {
   INIT_DATA_STATE: `INIT_DATA_STATE`,
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   SIGN_IN: `SIGN_IN`,
+  CHANGE_SORTING: `CHANGE_SORTING`,
 };
 
 export const CardType = {
   NEAR: `near`,
   CITIES: `cities`,
 };
+
+export const SortType = {
+  POPULAR: `Popular`,
+  PRICE_UP: `Price: low to high`,
+  PRICE_DOWN: `Price: high to low`,
+  RATE_DOWN: `Top rated first`,
+};
+

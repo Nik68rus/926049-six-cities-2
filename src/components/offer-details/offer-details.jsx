@@ -26,6 +26,8 @@ export const OfferDetails = (props) => {
 
   const neighborOffers = getNeighborOffers(3);
 
+  window.scrollTo(0, 0);
+
   return <div className="page">
     <header className="header">
       <div className="container">
