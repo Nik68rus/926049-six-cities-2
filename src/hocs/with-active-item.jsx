@@ -8,7 +8,6 @@ const withActiveItem = (Component) => {
       };
 
       this._offerMouseEnterHandler = this._offerMouseEnterHandler.bind(this);
-      this._offerMouseLeaveHandler = this._offerMouseLeaveHandler.bind(this);
     }
 
     render() {
@@ -16,19 +15,12 @@ const withActiveItem = (Component) => {
         {...this.props}
         activeCard={this.state.activeCard}
         mouseEnterHandler={this._offerMouseEnterHandler}
-        mouseLeaveHandler={this._offerMouseLeaveHandler}
       />;
     }
 
     _offerMouseEnterHandler(id) {
       this.setState({
         activeCard: id,
-      });
-    }
-
-    _offerMouseLeaveHandler() {
-      this.setState({
-        activeCard: -1,
       });
     }
   }

@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect';
+import {SortType} from '../constants';
 
 const getAllOffers = (state) => {
   return state.data.allOffers;
@@ -6,6 +7,14 @@ const getAllOffers = (state) => {
 
 const getCity = (state) => {
   return state.user.city;
+};
+
+const getCityOffers = (state) => {
+  return state.user.cityOffers;
+};
+
+const getSortingOrder = (state) => {
+  return state.user.sortOrder;
 };
 
 export const selectCityOffers = createSelector(
@@ -22,4 +31,19 @@ export const selectCities = createSelector(
           location: offers.find((offer) => offer.city.name === cityName).city.location,
         };
       })
+);
+
+export const selectSortedOffers = createSelector(
+    [getCityOffers, getSortingOrder],
+    (offers, order) => {
+      switch (order) {
+        case SortType.PRICE_UP:
+          return offers.sort((a, b) => a.price - b.price);
+        case SortType.PRICE_DOWN:
+          return offers.sort((a, b) => b.price - a.price);
+        case SortType.RATE_DOWN:
+          return offers.sort((a, b) => b.rate - a.rate);
+      }
+      return offers;
+    }
 );

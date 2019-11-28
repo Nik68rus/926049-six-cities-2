@@ -11,7 +11,7 @@ import withActiveItem from '../../hocs/with-active-item';
 const OffersListWrapped = withActiveItem(OffersList);
 
 export const OfferDetails = (props) => {
-  const {offer, offers, user, isAuthorizationRequired, city} = props;
+  const {offer, offers, user, isAuthorizationRequired, city, activePin} = props;
   const {id, title, price, rate, isPremium, photos, type, bedrooms, description, host, goods, maxAdults} = offer;
 
   const getNeighborOffers = (qtty) => {
@@ -25,6 +25,8 @@ export const OfferDetails = (props) => {
   };
 
   const neighborOffers = getNeighborOffers(3);
+
+  // window.scrollTo(0, 0);
 
   return <div className="page">
     <header className="header">
@@ -136,6 +138,7 @@ export const OfferDetails = (props) => {
           <Map
             city={city}
             offers={[offer, ...neighborOffers]}
+            activePin={activePin}
           />
         </section>
       </section>
@@ -175,6 +178,7 @@ OfferDetails.propTypes = {
     email: PropTypes.string.isRequired,
   }).isRequired,
   city: PropTypes.shape({}).isRequired,
+  activePin: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -182,6 +186,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   user: state.user.user,
   city: state.user.city,
   offers: state.user.cityOffers,
+  activePin: state.user.activePinID,
 });
 
 const mapDispatchToProps = {
