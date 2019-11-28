@@ -2,9 +2,11 @@ export const Level = {
   PREMIUM: `premium`,
 };
 
-export const Type = {
+export const OfferType = {
   APARTMENT: `apartment`,
   ROOM: `private room`,
+  HOUSE: `house`,
+  HOTEL: `hotel`,
 };
 
 export const ActionType = {
@@ -15,4 +17,9 @@ export const ActionType = {
   INIT_DATA_STATE: `INIT_DATA_STATE`,
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   SIGN_IN: `SIGN_IN`,
+};
+
+export const CardType = {
+  NEAR: `near`,
+  CITIES: `cities`,
 };

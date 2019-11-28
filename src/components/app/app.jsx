@@ -3,9 +3,13 @@ import {connect} from 'react-redux';
 import {Operation} from '../../store/action/action-creator';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
+import OfferDetails from '../offer-details/offer-details';
 
 const App = (props) => {
-  const {setUserData, checkAuth, isAuthorizationRequired} = props;
+  const {setUserData, checkAuth, isAuthorizationRequired, offers} = props;
+
+  const getOfferIndex = (id) => offers.map((offer) => offer.id).indexOf(+id);
+
   if (isAuthorizationRequired) {
     checkAuth();
   }
@@ -19,6 +23,11 @@ const App = (props) => {
             <SignIn {...compProps} onSubmit={setUserData} /> :
             <Redirect to="/" />}
       />
+      <Route
+        path="/offer/:id" exact
+        render={
+          (compProps) => <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} />}
+      />
     </Switch>
   </>;
 };
@@ -27,6 +36,7 @@ App.propTypes = {
   checkAuth: PropTypes.func.isRequired,
   setUserData: PropTypes.func.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
