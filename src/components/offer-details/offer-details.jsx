@@ -5,7 +5,6 @@ import {OfferType, CardType} from '../../constants';
 import {reviews} from '../../mock';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
-import Card from '../card/card';
 import OffersList from '../offers-list/offers-list';
 import withActiveItem from '../../hocs/with-active-item';
 
