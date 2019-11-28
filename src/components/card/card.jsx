@@ -3,7 +3,7 @@ import {CardType, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
 
 const Card = (props) => {
-  const {offer, id, mouseEnterHandler, mouseLeaveHandler, cardType} = props;
+  const {offer, id, mouseEnterHandler, cardType} = props;
   const {title, picture, type, price, rate, isBookmarked, isPremium} = offer;
 
   const bookmarkCard = (bookmark) => {
@@ -17,7 +17,7 @@ const Card = (props) => {
   };
 
   return (
-    <article className={cardType === CardType.CITIES ? `cities__place-card place-card` : `near-places__card place-card`} id={id} onMouseEnter={() => mouseEnterHandler(id)} onMouseLeave={() => mouseLeaveHandler()}>
+    <article className={cardType === CardType.CITIES ? `cities__place-card place-card` : `near-places__card place-card`} id={id} onMouseEnter={() => mouseEnterHandler(offer.id)} onMouseLeave={() => mouseEnterHandler(-1)}>
       {cardMark(isPremium)}
       <div className={cardType === CardType.CITIES ? `cities__image-wrapper place-card__image-wrapper` : `near-places__image-wrapper place-card__image-wrapper`}>
         <a href="#">
@@ -66,7 +66,6 @@ Card.propTypes = {
   }).isRequired,
   id: PropTypes.number.isRequired,
   mouseEnterHandler: PropTypes.func.isRequired,
-  mouseLeaveHandler: PropTypes.func.isRequired,
 };
 
 export default Card;

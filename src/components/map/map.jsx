@@ -21,7 +21,7 @@ class Map extends React.PureComponent {
   }
 
   _mapInit(currentCity, offersList, container) {
-    const {activeOffer} = this.props;
+    const {activePin} = this.props;
 
     this._city = [currentCity.location.latitude, currentCity.location.longitude];
     this._zoom = currentCity.location.zoom;
@@ -33,18 +33,18 @@ class Map extends React.PureComponent {
       marker: true
     });
     this._renderTitleLayer();
-    this._renderOffers(offersList, activeOffer);
+    this._renderOffers(offersList, activePin);
     this._map.setView(this._city, this._zoom);
   }
 
-  _renderOffers(offers, activeOffer) {
+  _renderOffers(offers, activePin) {
     if (this._markers.length > 0) {
       this._removeOffers();
     }
     if (offers) {
       offers
       .forEach((offer) => {
-        const currentIcon = offer.id === activeOffer ? this._activeIcon : this._icon;
+        const currentIcon = offer.id === activePin ? this._activeIcon : this._icon;
         this._offerMarker = leaflet
           .marker(offer.coords, {icon: currentIcon})
           .addTo(this._map);
@@ -74,8 +74,8 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {city, offers, activeOffer} = this.props;
-    this._renderOffers(offers, activeOffer);
+    const {city, offers, activePin} = this.props;
+    this._renderOffers(offers, activePin);
     this._map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
   }
 }
@@ -94,7 +94,7 @@ Map.propTypes = {
         coords: PropTypes.array.isRequired
       })
   ),
-  activeOffer: PropTypes.string.isRequired,
+  activePin: PropTypes.string.isRequired,
 };
 
 export default Map;

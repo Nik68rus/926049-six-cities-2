@@ -13,7 +13,7 @@ const OffersListWrapped = withActiveItem(OffersList);
 const SortingWrapped = withVisibilityStatus(Sorting);
 
 const MainScreen = (props) => {
-  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers} = props;
+  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin} = props;
   if (!isOffersLoaded || !isUserStateDefined) {
     return null;
   } else {
@@ -64,6 +64,7 @@ const MainScreen = (props) => {
                 <Map
                   city={city}
                   offers={offers}
+                  activePin={activePin}
                 />
               </section>
             </div>
@@ -93,6 +94,7 @@ MainScreen.propTypes = {
     }).isRequired,
   }),
   offers: PropTypes.array.isRequired,
+  activePin: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -102,6 +104,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isUserStateDefined: state.user.isUserStateDefined,
   city: state.user.city,
   offers: selectSortedOffers(state),
+  activePin: state.user.activePinID,
 });
 
 export {MainScreen};
