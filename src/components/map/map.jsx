@@ -1,11 +1,10 @@
 import leaflet from 'leaflet';
-import {connect} from 'react-redux';
 
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
     this._icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `../img/pin.svg`,
       iconSize: [30, 30]
     });
     this._mapRef = React.createRef();
@@ -90,12 +89,5 @@ Map.propTypes = {
   ),
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  city: state.user.city,
-  offers: state.user.cityOffers,
-});
-
-export {Map};
-
-export default connect(mapStateToProps)(Map);
+export default Map;
 

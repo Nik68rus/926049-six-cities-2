@@ -1,9 +1,9 @@
 import {makeFirstCharCapital} from '../../util';
+import {CardType} from '../../constants';
 import {Link} from 'react-router-dom';
-import {OfferType} from '../../constants';
 
 const Card = (props) => {
-  const {offer, id, mouseEnterHandler, mouseLeaveHandler} = props;
+  const {offer, id, mouseEnterHandler, mouseLeaveHandler, cardType} = props;
   const {title, picture, type, price, rate, isBookmarked, isPremium} = offer;
 
   const bookmarkCard = (bookmark) => {
@@ -17,9 +17,9 @@ const Card = (props) => {
   };
 
   return (
-    <article className="cities__place-card place-card" id={id} onMouseEnter={() => mouseEnterHandler(id)} onMouseLeave={() => mouseLeaveHandler()}>
+    <article className={cardType === CardType.CITIES ? `cities__place-card place-card` : `near-places__card place-card`} id={id} onMouseEnter={() => mouseEnterHandler(id)} onMouseLeave={() => mouseLeaveHandler()}>
       {cardMark(isPremium)}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={cardType === CardType.CITIES ? `cities__image-wrapper place-card__image-wrapper` : `near-places__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image"/>
         </a>
@@ -39,20 +39,21 @@ const Card = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rate * 20}%`}}></span>
+            <span style={{width: `${rate}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{makeFirstCharCapital(OfferType[type.toUpperCase()])}</p>
+        <p className="place-card__type">{makeFirstCharCapital(type)}</p>
       </div>
     </article>
   );
 };
 
 Card.propTypes = {
+  cardType: PropTypes.string.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
