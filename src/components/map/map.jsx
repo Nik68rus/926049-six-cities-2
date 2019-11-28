@@ -94,7 +94,7 @@ Map.propTypes = {
         coords: PropTypes.array.isRequired
       })
   ),
-  activePin: PropTypes.string.isRequired,
+  activePin: PropTypes.number.isRequired,
 };
 
 export default Map;
