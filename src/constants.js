@@ -18,6 +18,7 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   SIGN_IN: `SIGN_IN`,
   CHANGE_SORTING: `CHANGE_SORTING`,
+  SET_ACTIVE_PIN: `SET_ACTIVE_PIN`,
 };
 
 export const CardType = {

@@ -42,6 +42,11 @@ const ActionCreator = {
     type: ActionType.CHANGE_SORTING,
     payload: order,
   }),
+
+  setActivePin: (id) => ({
+    type: ActionType.SET_ACTIVE_PIN,
+    payload: id,
+  })
 };
 
 const Operation = {

@@ -4,6 +4,7 @@ const initialState = {
   city: null,
   cityOffers: [],
   sortOrder: SortType.POPULAR,
+  activePinID: -1,
   isUserStateDefined: false,
   isAuthorizationRequired: true,
   user: {
@@ -29,6 +30,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {user: action.payload});
     case ActionType.CHANGE_SORTING:
       return Object.assign({}, state, {sortOrder: action.payload});
+    case ActionType.SET_ACTIVE_PIN:
+      return Object.assign({}, state, {activePinID: action.payload});
   }
 
   return state;
