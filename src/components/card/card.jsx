@@ -1,5 +1,5 @@
 import {makeFirstCharCapital} from '../../util';
-import {CardType} from '../../constants';
+import {CardType, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
 
 const Card = (props) => {
@@ -39,14 +39,14 @@ const Card = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rate}%`}}></span>
+            <span style={{width: `${rate * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{makeFirstCharCapital(type)}</p>
+        <p className="place-card__type">{makeFirstCharCapital(OfferType[type.toUpperCase()])}</p>
       </div>
     </article>
   );

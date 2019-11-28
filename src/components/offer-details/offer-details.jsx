@@ -7,6 +7,9 @@ import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
 import Card from '../card/card';
 import OffersList from '../offers-list/offers-list';
+import withActiveItem from '../../hocs/with-active-item';
+
+const OffersListWrapped = withActiveItem(OffersList);
 
 export const OfferDetails = (props) => {
   const {offer, offers, user, isAuthorizationRequired, city} = props;
@@ -140,11 +143,7 @@ export const OfferDetails = (props) => {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {
-              neighborOffers.map((neighborOffer) => <Card key={neighborOffer.id} cardType={CardType.NEAR} offer={neighborOffer} mouseEnterHandler={() =>{}} mouseLeaveHandler={() => {}} />)
-            }
-          </div>
+          <OffersListWrapped cardType={CardType.NEAR} offers={neighborOffers} />
         </section>
       </div>
     </main>

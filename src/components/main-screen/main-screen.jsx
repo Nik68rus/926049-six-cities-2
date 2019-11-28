@@ -4,6 +4,7 @@ import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
 import withActiveItem from '../../hocs/with-active-item';
 import {Link} from 'react-router-dom';
+import {CardType} from '../../constants';
 
 const OffersListWrapped = withActiveItem(OffersList);
 
@@ -66,7 +67,7 @@ const MainScreen = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersListWrapped offers={offers}/>
+              <OffersListWrapped cardType={CardType.CITIES} offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
