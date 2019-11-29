@@ -46,4 +46,23 @@ export default class Adapter {
       isPro: user[`is_pro`],
     };
   }
+
+  static getReview(review) {
+    return {
+      id: review.id,
+      user: {
+        id: review.user.id,
+        isPro: review.user[`is_pro`],
+        name: review.user.name,
+        avatar: review.user[`avatar_url`],
+      },
+      rating: review.rating,
+      comment: review.comment,
+      date: review.date,
+    };
+  }
+
+  static getReviews(reviews) {
+    return reviews.map(Adapter.getReview);
+  }
 }

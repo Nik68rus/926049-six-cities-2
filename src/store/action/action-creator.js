@@ -8,6 +8,11 @@ const ActionCreator = {
     payload: loadedOffers,
   }),
 
+  loadReviews: (loadedReviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: loadedReviews,
+  }),
+
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
@@ -81,6 +86,13 @@ const Operation = {
       dispatch(ActionCreator.signIn(Adapter.getUser(response.data)));
     });
   },
+
+  loadReviews: (id) => (dispatch, _, api) => {
+    return api.get(`/comments/${id}`)
+    .then((response) => {
+      dispatch(ActionCreator.loadReviews(Adapter.getReviews(response.data)));
+    });
+  }
 };
 
 export {
