@@ -8,13 +8,14 @@ import {CardType} from '../../constants';
 import Sorting from '../sorting/sorting';
 import withVisibilityStatus from '../../hocs/with-visibility-status';
 import {selectSortedOffers} from '../../store/selectors';
+import MainEmpty from '../main-empty/main-empty';
 
 const OffersListWrapped = withActiveItem(OffersList);
 const SortingWrapped = withVisibilityStatus(Sorting);
 
 const MainScreen = (props) => {
-  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin} = props;
-  if (!isOffersLoaded || !isUserStateDefined) {
+  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin, allOffers} = props;
+  if (allOffers.length > 0 & (!isOffersLoaded || !isUserStateDefined)) {
     return null;
   } else {
     return <div className="page page--gray page--main">
@@ -44,33 +45,35 @@ const MainScreen = (props) => {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <CityList />
-          </section>
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} {offers.length === 1 ? `place` : `places`} to stay in {city.name}</b>
-              <SortingWrapped />
-              <OffersListWrapped cardType={CardType.CITIES} offers={offers}/>
+      {allOffers.length > 0 ? (
+        <main className="page__main page__main--index">
+          <h1 className="visually-hidden">Cities</h1>
+          <div className="tabs">
+            <section className="locations container">
+              <CityList />
             </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  city={city}
-                  offers={offers}
-                  activePin={activePin}
-                />
+          </div>
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers.length} {offers.length === 1 ? `place` : `places`} to stay in {city.name}</b>
+                <SortingWrapped />
+                <OffersListWrapped cardType={CardType.CITIES} offers={offers}/>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    city={city}
+                    offers={offers}
+                    activePin={activePin}
+                  />
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      ) : <MainEmpty />}
     </div>;
   }
 };
@@ -95,6 +98,7 @@ MainScreen.propTypes = {
   }),
   offers: PropTypes.array.isRequired,
   activePin: PropTypes.number.isRequired,
+  allOffers: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -105,6 +109,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   city: state.user.city,
   offers: selectSortedOffers(state),
   activePin: state.user.activePinID,
+  allOffers: state.data.allOffers,
 });
 
 export {MainScreen};
