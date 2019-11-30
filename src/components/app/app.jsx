@@ -26,7 +26,9 @@ const App = (props) => {
       <Route
         path="/offer/:id" exact
         render={
-          (compProps) => <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} />}
+          (compProps) => isAuthorizationRequired ?
+            <SignIn {...compProps} onSubmit={setUserData} /> :
+            <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} />}
       />
     </Switch>
   </>;
