@@ -5,7 +5,7 @@ import {ActionCreator, Operation} from '../../store/action/action-creator';
 import {connect} from 'react-redux';
 
 export const Card = (props) => {
-  const {offer, id, mouseEnterHandler, cardType, offerTitleClickHandler} = props;
+  const {offer, id, mouseEnterHandler, cardType, offerClickHandler} = props;
   const {title, picture, type, price, rate, isBookmarked, isPremium} = offer;
 
   const bookmarkCard = (bookmark) => {
@@ -22,9 +22,14 @@ export const Card = (props) => {
     <article className={cardType === CardType.CITIES ? `cities__place-card place-card` : `near-places__card place-card`} id={id} onMouseEnter={() => mouseEnterHandler(offer.id)} onMouseLeave={() => mouseEnterHandler(-1)}>
       {cardMark(isPremium)}
       <div className={cardType === CardType.CITIES ? `cities__image-wrapper place-card__image-wrapper` : `near-places__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link
+          to={`/offer/${offer.id}`}
+          onClick={() => {
+            offerClickHandler(offer.id);
+          }}
+        >
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -47,7 +52,7 @@ export const Card = (props) => {
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${offer.id}`} onClick={() => {
-            offerTitleClickHandler(offer.id);
+            offerClickHandler(offer.id);
           }}>{title}</Link>
         </h2>
         <p className="place-card__type">{makeFirstCharCapital(OfferType[type.toUpperCase()])}</p>
@@ -70,14 +75,14 @@ Card.propTypes = {
   }).isRequired,
   id: PropTypes.number.isRequired,
   mouseEnterHandler: PropTypes.func.isRequired,
-  offerTitleClickHandler: PropTypes.func.isRequired,
+  offerClickHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  offerTitleClickHandler: (id) => {
+  offerClickHandler: (id) => {
     dispatch(Operation.loadReviews(id));
     dispatch(ActionCreator.setActivePin(id));
     window.scrollTo(0, 0);

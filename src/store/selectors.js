@@ -38,11 +38,11 @@ export const selectSortedOffers = createSelector(
     (offers, order) => {
       switch (order) {
         case SortType.PRICE_UP:
-          return offers.sort((a, b) => a.price - b.price);
+          return offers.slice().sort((a, b) => a.price - b.price);
         case SortType.PRICE_DOWN:
-          return offers.sort((a, b) => b.price - a.price);
+          return offers.slice().sort((a, b) => b.price - a.price);
         case SortType.RATE_DOWN:
-          return offers.sort((a, b) => b.rate - a.rate);
+          return offers.slice().sort((a, b) => b.rate - a.rate);
       }
       return offers;
     }

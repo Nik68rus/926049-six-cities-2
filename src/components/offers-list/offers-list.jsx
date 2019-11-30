@@ -17,10 +17,12 @@ OffersList.propTypes = {
   activeCard: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   mouseEnterHandler: PropTypes.func.isRequired,
+  sortOrder: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  activeOfferCard: state.activeOfferCard
+  activeOfferCard: state.activeOfferCard,
+  sortOrder: state.user.sortOrder,
 });
 
 const mapDispatchToProps = (dispatch) => ({

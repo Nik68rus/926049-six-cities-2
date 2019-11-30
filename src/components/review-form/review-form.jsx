@@ -1,5 +1,6 @@
-const ReviewForm = () => {
-  return <form className="reviews__form form" action="#" method="post">
+const ReviewForm = (props) => {
+  const {onInput, onSubmit, formRef} = props;
+  return <form className="reviews__form form" action="#" method="post" onChange={onInput} onSubmit={onSubmit} ref={formRef}>
     <label className="reviews__label form__label" htmlFor="review">Your review</label>
     <div className="reviews__rating-form form__rating">
       <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
@@ -45,6 +46,12 @@ const ReviewForm = () => {
       <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
     </div>
   </form>;
+};
+
+ReviewForm.propTypes = {
+  onInput: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  formRef: PropTypes.shape({current: PropTypes.instanceOf(Element)}),
 };
 
 export default ReviewForm;

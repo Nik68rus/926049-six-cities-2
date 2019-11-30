@@ -6,11 +6,12 @@ import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import withActiveItem from '../../hocs/with-active-item';
+import {Operation} from '../../store/action/action-creator';
 
 const OffersListWrapped = withActiveItem(OffersList);
 
 export const OfferDetails = (props) => {
-  const {offer, offers, user, isAuthorizationRequired, city, activePin, reviews} = props;
+  const {offer, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit} = props;
   const {id, title, price, rate, isPremium, photos, type, bedrooms, description, host, goods, maxAdults} = offer;
 
   const getNeighborOffers = (qtty) => {
@@ -128,7 +129,7 @@ export const OfferDetails = (props) => {
                 </p>
               </div>
             </div>
-            <ReviewList reviews={reviews} />
+            <ReviewList reviews={reviews} id={offer.id} onReviewSubmit={onReviewSubmit}/>
           </div>
         </div>
         <section className="property__map map">
@@ -177,6 +178,7 @@ OfferDetails.propTypes = {
   city: PropTypes.shape({}).isRequired,
   activePin: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
+  onReviewSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -188,7 +190,10 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   reviews: state.data.reviews,
 });
 
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = (dispatch) => ({
+  onReviewSubmit: (id, review) => {
+    dispatch(Operation.postReview(id, review));
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);
