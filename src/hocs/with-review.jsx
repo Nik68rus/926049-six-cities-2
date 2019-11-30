@@ -70,7 +70,8 @@ const withReview = (Component) => {
         review: ``,
         isValid: false
       });
-
+      this._markRef.current.setCustomValidity(``);
+      this._textRef.current.setCustomValidity(``);
       this._formRef.current.reset();
     }
   }

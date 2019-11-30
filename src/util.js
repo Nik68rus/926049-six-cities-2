@@ -7,3 +7,10 @@ export const getAverage = (nums) => nums.reduce((a, b) => (a + b)) / nums.length
 export const getCityOffers = (allOffers, city) => {
   return allOffers.filter((offer) => offer.city.name === city.name);
 };
+
+export const getFormatedDate = (reviewDate) => {
+  const date = new Date(reviewDate);
+  const month = date.toLocaleString(`en-us`, {month: `long`});
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+};
