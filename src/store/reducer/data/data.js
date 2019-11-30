@@ -3,6 +3,7 @@ import {ActionType} from '../../../constants';
 const initialState = {
   allOffers: [],
   isOffersLoaded: false,
+  reviews: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +16,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isOffersLoaded: action.payload,
       });
-
+    case ActionType.LOAD_REVIEWS:
+      return Object.assign({}, state, {
+        reviews: action.payload,
+      });
   }
 
   return state;

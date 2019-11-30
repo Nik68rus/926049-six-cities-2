@@ -2,16 +2,16 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {makeFirstCharCapital} from '../../util';
 import {OfferType, CardType} from '../../constants';
-import {reviews} from '../../mock';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import withActiveItem from '../../hocs/with-active-item';
+import {Operation} from '../../store/action/action-creator';
 
 const OffersListWrapped = withActiveItem(OffersList);
 
 export const OfferDetails = (props) => {
-  const {offer, offers, user, isAuthorizationRequired, city, activePin} = props;
+  const {offer, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit} = props;
   const {id, title, price, rate, isPremium, photos, type, bedrooms, description, host, goods, maxAdults} = offer;
 
   const getNeighborOffers = (qtty) => {
@@ -25,8 +25,6 @@ export const OfferDetails = (props) => {
   };
 
   const neighborOffers = getNeighborOffers(3);
-
-  // window.scrollTo(0, 0);
 
   return <div className="page">
     <header className="header">
@@ -131,7 +129,7 @@ export const OfferDetails = (props) => {
                 </p>
               </div>
             </div>
-            <ReviewList reviews={reviews} />
+            <ReviewList reviews={reviews} id={offer.id} onReviewSubmit={onReviewSubmit}/>
           </div>
         </div>
         <section className="property__map map">
@@ -179,6 +177,8 @@ OfferDetails.propTypes = {
   }).isRequired,
   city: PropTypes.shape({}).isRequired,
   activePin: PropTypes.number.isRequired,
+  reviews: PropTypes.array.isRequired,
+  onReviewSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -187,9 +187,13 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   city: state.user.city,
   offers: state.user.cityOffers,
   activePin: state.user.activePinID,
+  reviews: state.data.reviews,
 });
 
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = (dispatch) => ({
+  onReviewSubmit: (id, review) => {
+    dispatch(Operation.postReview(id, review));
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

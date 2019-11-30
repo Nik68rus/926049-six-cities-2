@@ -19,6 +19,7 @@ export const ActionType = {
   SIGN_IN: `SIGN_IN`,
   CHANGE_SORTING: `CHANGE_SORTING`,
   SET_ACTIVE_PIN: `SET_ACTIVE_PIN`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
 };
 
 export const CardType = {
