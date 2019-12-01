@@ -1,12 +1,12 @@
-import {makeFirstCharCapital} from '../../util';
+import {makeFirstCharCapital, getStatus} from '../../util';
 import {CardType, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
 import {ActionCreator, Operation} from '../../store/action/action-creator';
 import {connect} from 'react-redux';
 
 export const Card = (props) => {
-  const {offer, id, mouseEnterHandler, cardType, offerClickHandler} = props;
-  const {title, picture, type, price, rate, isBookmarked, isPremium} = offer;
+  const {offer, id, mouseEnterHandler, cardType, offerClickHandler, onFavoriteClickHandler, isFavorite} = props;
+  const {title, picture, type, price, rate, isPremium} = offer;
 
   const bookmarkCard = (bookmark) => {
     return bookmark ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`;
@@ -37,7 +37,7 @@ export const Card = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkCard(isBookmarked)} type="button">
+          <button className={bookmarkCard(isFavorite)} type="button" onClick={() => onFavoriteClickHandler(offer.id, getStatus(isFavorite))}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -76,9 +76,14 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   mouseEnterHandler: PropTypes.func.isRequired,
   offerClickHandler: PropTypes.func.isRequired,
+  onFavoriteClickHandler: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  isFavorite: state.user.cityOffers.find((it) => {
+    return it.id === ownProps.offer.id;
+  }).isBookmarked,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -87,6 +92,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.setActivePin(id));
     window.scrollTo(0, 0);
   },
+  onFavoriteClickHandler: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

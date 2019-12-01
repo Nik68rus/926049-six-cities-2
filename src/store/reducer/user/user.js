@@ -1,4 +1,5 @@
 import {ActionType, SortType} from '../../../constants';
+import {updateOffers} from '../../../util';
 
 const initialState = {
   city: null,
@@ -32,6 +33,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {sortOrder: action.payload});
     case ActionType.SET_ACTIVE_PIN:
       return Object.assign({}, state, {activePinID: action.payload});
+    case ActionType.UPDATE_OFFERS:
+      return Object.assign({}, state, {
+        allOffers: updateOffers(state.cityOffers, action.payload),
+      });
   }
 
   return state;

@@ -51,7 +51,12 @@ const ActionCreator = {
   setActivePin: (id) => ({
     type: ActionType.SET_ACTIVE_PIN,
     payload: id,
-  })
+  }),
+
+  updateOffers: (offers) => ({
+    type: ActionType.UPDATE_OFFERS,
+    payload: offers,
+  }),
 };
 
 const Operation = {
@@ -98,6 +103,23 @@ const Operation = {
     return api.post(`/comments/${id}`, review)
     .then((response) => {
       dispatch(ActionCreator.loadReviews(Adapter.getReviews(response.data)));
+    });
+  },
+
+  getFavoriteOffers: () => (dispatch, _, api) => {
+    return api.get(`/favorite`)
+    .then((response) => {
+      if (response.data.length > 0) {
+        const adoptedData = Adapter.getOffers(response.data);
+        dispatch(ActionCreator.updateOffers(adoptedData));
+      }
+    });
+  },
+
+  changeOfferStatus: (id, status) => (dispatch, _, api) => {
+    return api.post(`/favorite/${id}/${status}`)
+    .then((response) => {
+      dispatch(ActionCreator.updateOffers([Adapter.getOffer(response.data)]));
     });
   },
 };

@@ -46,10 +46,9 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isAuthorizationRequired: state.user.isAuthorizationRequired,
 });
 
-const mapDispatchToProps = {
-  checkAuth: Operation.checkAuth,
-  setUserData: (data) => Operation.loginUser(data)
-
-};
+const mapDispatchToProps = (dispatch) => ({
+  checkAuth: () => dispatch(Operation.checkAuth()),
+  setUserData: (data) => dispatch(Operation.loginUser(data)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
