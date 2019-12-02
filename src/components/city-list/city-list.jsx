@@ -1,18 +1,18 @@
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action/action-creator';
 import {selectCities, selectCityOffers} from '../../store/selectors';
+import {Link} from 'react-router-dom';
 
 const CityList = (props) => {
   const {currentCity, cities, allOffers, changeCityClickHandler} = props;
   return <ul className="locations__list tabs__list">
     {cities.map((city) => (
       <li className="locations__item" key={`city-${city.name}`}>
-        <a
+        <Link to="/"
           className={`locations__item-link tabs__item ${city.name === currentCity.name && `tabs__item--active`}`}
-          href="#"
           onClick={() => changeCityClickHandler(allOffers, city)}>
           <span>{city.name}</span>
-        </a>
+        </Link>
       </li>
     )
     )}

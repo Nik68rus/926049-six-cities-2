@@ -26,3 +26,8 @@ export const updateOffers = (allOffers, favoriteOffers) => {
 };
 
 export const getStatus = (flag) => flag ? 0 : 1;
+
+export const getUserAvatar = (flag, currentUser) => {
+  return flag ? `` : <img className="reviews__avatar user__avatar" src={`https://htmlacademy-react-2.appspot.com/six-cities${currentUser.avatar}`} width="54" height="54" alt="User avatar" />;
+};
+

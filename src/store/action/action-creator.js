@@ -119,7 +119,9 @@ const Operation = {
   changeOfferStatus: (id, status) => (dispatch, _, api) => {
     return api.post(`/favorite/${id}/${status}`)
     .then((response) => {
-      dispatch(ActionCreator.updateOffers([Adapter.getOffer(response.data)]));
+      if (response.data) {
+        dispatch(ActionCreator.updateOffers([Adapter.getOffer(response.data)]));
+      }
     });
   },
 };

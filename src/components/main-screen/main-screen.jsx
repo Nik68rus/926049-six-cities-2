@@ -9,12 +9,15 @@ import Sorting from '../sorting/sorting';
 import withVisibilityStatus from '../../hocs/with-visibility-status';
 import {selectSortedOffers} from '../../store/selectors';
 import MainEmpty from '../main-empty/main-empty';
+import {getUserAvatar} from '../../util';
+import {Operation} from '../../store/action/action-creator';
 
 const OffersListWrapped = withActiveItem(OffersList);
 const SortingWrapped = withVisibilityStatus(Sorting);
 
 const MainScreen = (props) => {
-  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin, allOffers} = props;
+  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin, allOffers, getFavoriteOffers} = props;
+
   if (allOffers.length > 0 & (!isOffersLoaded || !isUserStateDefined)) {
     return null;
   } else {
@@ -32,9 +35,11 @@ const MainScreen = (props) => {
                 <li className="header__nav-item user">
                   <Link
                     className="header__nav-link header__nav-link--profile"
-                    to={isAuthorizationRequired ? `/login` : `/favorite`}
+                    to={isAuthorizationRequired ? `/login` : `/favorites`}
+                    onClick={isAuthorizationRequired ? null : getFavoriteOffers}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper">
+                      {getUserAvatar(isAuthorizationRequired, user)}
                     </div>
                     <span className="header__user-name user__name">{isAuthorizationRequired ? `Sign In` : user.email}</span>
                   </Link>
@@ -112,6 +117,10 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   allOffers: state.data.allOffers,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getFavoriteOffers: () => dispatch(Operation.getFavoriteOffers()),
+});
+
 export {MainScreen};
 
-export default connect(mapStateToProps)(MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

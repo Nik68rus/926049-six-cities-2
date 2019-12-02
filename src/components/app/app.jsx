@@ -4,6 +4,7 @@ import {Operation} from '../../store/action/action-creator';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
 import OfferDetails from '../offer-details/offer-details';
+import Favorites from '../favorites/favorites';
 
 const App = (props) => {
   const {setUserData, checkAuth, isAuthorizationRequired, offers} = props;
@@ -26,10 +27,10 @@ const App = (props) => {
       <Route
         path="/offer/:id" exact
         render={
-          (compProps) => isAuthorizationRequired ?
-            <SignIn {...compProps} onSubmit={setUserData} /> :
-            <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} />}
+          (compProps) => <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} />}
       />
+      <Route path="/favorites" exact component={Favorites} />
+
     </Switch>
   </>;
 };

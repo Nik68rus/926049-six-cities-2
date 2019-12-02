@@ -1,11 +1,11 @@
 import {makeFirstCharCapital, getStatus} from '../../util';
-import {CardType, OfferType} from '../../constants';
+import {CardType, CardClasses, OfferType} from '../../constants';
 import {Link} from 'react-router-dom';
 import {ActionCreator, Operation} from '../../store/action/action-creator';
 import {connect} from 'react-redux';
 
 export const Card = (props) => {
-  const {offer, id, mouseEnterHandler, cardType, offerClickHandler, onFavoriteClickHandler, isFavorite} = props;
+  const {offer, mouseEnterHandler, cardType, offerClickHandler, onFavoriteClickHandler, isFavorite} = props;
   const {title, picture, type, price, rate, isPremium} = offer;
 
   const bookmarkCard = (bookmark) => {
@@ -18,10 +18,12 @@ export const Card = (props) => {
     </div> : ``;
   };
 
+  const classes = CardClasses[cardType];
+
   return (
-    <article className={cardType === CardType.CITIES ? `cities__place-card place-card` : `near-places__card place-card`} id={id} onMouseEnter={() => mouseEnterHandler(offer.id)} onMouseLeave={() => mouseEnterHandler(-1)}>
+    <article className={`${classes.article} place-card`} onMouseEnter={() => mouseEnterHandler(offer.id)} onMouseLeave={() => mouseEnterHandler(-1)}>
       {cardMark(isPremium)}
-      <div className={cardType === CardType.CITIES ? `cities__image-wrapper place-card__image-wrapper` : `near-places__image-wrapper place-card__image-wrapper`}>
+      <div className={`${classes.div1}__image-wrapper place-card__image-wrapper`}>
         <Link
           to={`/offer/${offer.id}`}
           onClick={() => {
@@ -31,7 +33,7 @@ export const Card = (props) => {
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${classes.div2} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -73,8 +75,7 @@ Card.propTypes = {
     isBookmarked: PropTypes.bool.isRequired,
     isPremium: PropTypes.bool.isRequired,
   }).isRequired,
-  id: PropTypes.number.isRequired,
-  mouseEnterHandler: PropTypes.func.isRequired,
+  mouseEnterHandler: PropTypes.func,
   offerClickHandler: PropTypes.func.isRequired,
   onFavoriteClickHandler: PropTypes.func.isRequired,
   isFavorite: PropTypes.bool.isRequired,

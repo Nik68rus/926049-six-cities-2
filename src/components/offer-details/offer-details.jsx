@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {makeFirstCharCapital, getStatus} from '../../util';
+import {makeFirstCharCapital, getStatus, getUserAvatar} from '../../util';
 import {OfferType, CardType} from '../../constants';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
@@ -47,6 +47,7 @@ export const OfferDetails = (props) => {
                   to={isAuthorizationRequired ? `/login` : `/favorite`}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
+                    {getUserAvatar(isAuthorizationRequired, user)}
                   </div>
                   <span className="header__user-name user__name">{isAuthorizationRequired ? `Sign In` : user.email}</span>
                 </Link>

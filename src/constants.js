@@ -24,8 +24,27 @@ export const ActionType = {
 };
 
 export const CardType = {
-  NEAR: `near`,
-  CITIES: `cities`,
+  NEAR: `NEAR`,
+  CITIES: `CITIES`,
+  FAVORITES: `FAVORITES`,
+};
+
+export const CardClasses = {
+  CITIES: {
+    article: `cities__place-card`,
+    div1: `cities`,
+    div2: ``,
+  },
+  NEAR: {
+    article: `near-places__card`,
+    div1: `near-places`,
+    div2: ``,
+  },
+  FAVORITES: {
+    article: `favorites__card`,
+    div1: `favorites`,
+    div2: `favorites__card-info`,
+  },
 };
 
 export const SortType = {

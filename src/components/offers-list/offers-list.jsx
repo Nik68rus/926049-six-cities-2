@@ -7,7 +7,7 @@ export const OffersList = (props) => {
   const {offers, mouseEnterHandler, cardType} = props;
   return <div className={cardType === CardType.CITIES ? `cities__places-list places__list tabs__content` : `near-places__list places__list`}>
     {
-      offers.map((offer, i) => <Card key={offer.id} cardType={CardType.CITIES} offer={offer} id={i} mouseEnterHandler={mouseEnterHandler} />)
+      offers.map((offer) => <Card key={offer.id} cardType={CardType.CITIES} offer={offer} mouseEnterHandler={mouseEnterHandler} />)
     }
   </div>;
 };
