@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Operation} from '../../store/action/action-creator';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
+import withUserData from '../../hocs/with-user-data';
 import OfferDetails from '../offer-details/offer-details';
 import Favorites from '../favorites/favorites';
 
@@ -10,6 +11,8 @@ const App = (props) => {
   const {setUserData, checkAuth, isAuthorizationRequired, offers, getFavoriteOffers} = props;
 
   const getOfferIndex = (id) => offers.map((offer) => offer.id).indexOf(+id);
+
+  const SignInWrapped = withUserData(SignIn);
 
   if (isAuthorizationRequired) {
     checkAuth();
@@ -21,7 +24,7 @@ const App = (props) => {
         path="/login" exact
         render={
           (compProps) => isAuthorizationRequired ?
-            <SignIn {...compProps} onSubmit={setUserData} /> :
+            <SignInWrapped {...compProps} onSubmit={setUserData} /> :
             <Redirect to="/" />}
       />
       <Route
