@@ -17,6 +17,10 @@ const getSortingOrder = (state) => {
   return state.user.sortOrder;
 };
 
+export const getAllFavoriteOffers = (state) => {
+  return state.data.allOffers.filter((offer) => offer.isBookmarked === true);
+};
+
 export const selectCityOffers = createSelector(
     [getAllOffers, getCity],
     (offers, city) => offers.filter((offer) => offer.city === city)

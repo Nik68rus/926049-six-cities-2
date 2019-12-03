@@ -14,7 +14,7 @@ const FavoriteCity = (props) => {
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((offer) => <Card key={offer.id} offer={offer} cardType={CardType.FAVORITES}/>)}
+        {offers.map((offer) => <Card key={offer.id} offer={offer} cardType={CardType.FAVORITES} mouseEnterHandler={() => {}}/>)}
       </div>
     </li>
   );

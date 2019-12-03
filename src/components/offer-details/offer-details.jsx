@@ -11,7 +11,7 @@ import {Operation} from '../../store/action/action-creator';
 const OffersListWrapped = withActiveItem(OffersList);
 
 export const OfferDetails = (props) => {
-  const {offer, isFavorite, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit, onFavoriteClickHandler} = props;
+  const {offer, isFavorite, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit, onBookmarkClickHandler, onFavoriteClickHandler} = props;
   const {id, title, price, rate, isPremium, photos, type, bedrooms, description, host, goods, maxAdults} = offer;
 
   const getNeighborOffers = (qtty) => {
@@ -44,7 +44,8 @@ export const OfferDetails = (props) => {
               <li className="header__nav-item user">
                 <Link
                   className="header__nav-link header__nav-link--profile"
-                  to={isAuthorizationRequired ? `/login` : `/favorite`}
+                  to={isAuthorizationRequired ? `/login` : `/favorites`}
+                  onClick={isAuthorizationRequired ? null : onFavoriteClickHandler}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                     {getUserAvatar(isAuthorizationRequired, user)}
@@ -76,7 +77,7 @@ export const OfferDetails = (props) => {
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className={bookmarkCard(isFavorite)} type="button" onClick={() => onFavoriteClickHandler(id, getStatus(isFavorite))}>
+              <button className={bookmarkCard(isFavorite)} type="button" onClick={() => onBookmarkClickHandler(id, getStatus(isFavorite))}>
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -186,6 +187,7 @@ OfferDetails.propTypes = {
   activePin: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
+  onBookmarkClickHandler: PropTypes.func.isRequired,
   onFavoriteClickHandler: PropTypes.func.isRequired,
 };
 
@@ -196,7 +198,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   offers: state.user.cityOffers,
   activePin: state.user.activePinID,
   reviews: state.data.reviews,
-  isFavorite: state.user.cityOffers.find((it) => {
+  isFavorite: state.data.allOffers.find((it) => {
     return it.id === ownProps.offer.id;
   }).isBookmarked,
 });
@@ -205,7 +207,7 @@ const mapDispatchToProps = (dispatch) => ({
   onReviewSubmit: (id, review) => {
     dispatch(Operation.postReview(id, review));
   },
-  onFavoriteClickHandler: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
+  onBookmarkClickHandler: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

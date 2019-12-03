@@ -10,13 +10,12 @@ import withVisibilityStatus from '../../hocs/with-visibility-status';
 import {selectSortedOffers} from '../../store/selectors';
 import MainEmpty from '../main-empty/main-empty';
 import {getUserAvatar} from '../../util';
-import {Operation} from '../../store/action/action-creator';
 
 const OffersListWrapped = withActiveItem(OffersList);
 const SortingWrapped = withVisibilityStatus(Sorting);
 
 const MainScreen = (props) => {
-  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin, allOffers, getFavoriteOffers} = props;
+  const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin, allOffers, onFavoriteClickHandler} = props;
 
   if (allOffers.length > 0 & (!isOffersLoaded || !isUserStateDefined)) {
     return null;
@@ -36,7 +35,7 @@ const MainScreen = (props) => {
                   <Link
                     className="header__nav-link header__nav-link--profile"
                     to={isAuthorizationRequired ? `/login` : `/favorites`}
-                    onClick={isAuthorizationRequired ? null : getFavoriteOffers}
+                    onClick={isAuthorizationRequired ? null : onFavoriteClickHandler}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                       {getUserAvatar(isAuthorizationRequired, user)}
@@ -104,6 +103,7 @@ MainScreen.propTypes = {
   offers: PropTypes.array.isRequired,
   activePin: PropTypes.number.isRequired,
   allOffers: PropTypes.array.isRequired,
+  onFavoriteClickHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -117,10 +117,6 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   allOffers: state.data.allOffers,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFavoriteOffers: () => dispatch(Operation.getFavoriteOffers()),
-});
-
 export {MainScreen};
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+export default connect(mapStateToProps)(MainScreen);

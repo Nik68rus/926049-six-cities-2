@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom';
-import {Operation} from '../../store/action/action-creator';
 import {connect} from 'react-redux';
 import FavoriteCity from '../favorite-offers-list/favorite-city';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import {getAllFavoriteOffers} from '../../store/selectors';
 
 export const Favorites = (props) => {
   const {favoriteOffers, user} = props;
@@ -12,6 +12,10 @@ export const Favorites = (props) => {
   };
 
   const favoriteCities = getCitiesFromFavorite(favoriteOffers);
+
+  const getCityFavoriteOffers = (city, allFavoriteOffers) => {
+    return allFavoriteOffers.filter((offer) => offer.city.name === city);
+  };
 
   return favoriteOffers.length === 0 ? <FavoritesEmpty user={user}/> : (
     <div className="page">
@@ -47,7 +51,7 @@ export const Favorites = (props) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {favoriteCities.map((city) => <FavoriteCity key={city} name={city} offers={favoriteOffers.filter((offer) => offer.city.name === city)} />)}
+              {favoriteCities.map((cityName) => <FavoriteCity key={cityName} name={cityName} offers={getCityFavoriteOffers(cityName, favoriteOffers)} />)}
             </ul>
           </section>
         </div>
@@ -63,7 +67,6 @@ export const Favorites = (props) => {
 
 Favorites.propTypes = {
   favoriteOffers: PropTypes.array.isRequired,
-  getFavoriteOffers: PropTypes.func.isRequired,
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
@@ -71,12 +74,8 @@ Favorites.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  favoriteOffers: state.data.allOffers.filter((offer) => offer.isBookmarked),
+  favoriteOffers: getAllFavoriteOffers(state),
   user: state.user.user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getFavoriteOffers: () => dispatch(Operation.getFavoriteOffers()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps)(Favorites);

@@ -7,7 +7,7 @@ import OfferDetails from '../offer-details/offer-details';
 import Favorites from '../favorites/favorites';
 
 const App = (props) => {
-  const {setUserData, checkAuth, isAuthorizationRequired, offers} = props;
+  const {setUserData, checkAuth, isAuthorizationRequired, offers, getFavoriteOffers} = props;
 
   const getOfferIndex = (id) => offers.map((offer) => offer.id).indexOf(+id);
 
@@ -16,7 +16,7 @@ const App = (props) => {
   }
   return <>
     <Switch>
-      <Route path="/" exact component={MainScreen} />
+      <Route path="/" exact render={(compProps) => <MainScreen {...compProps} onFavoriteClickHandler={getFavoriteOffers} />} />
       <Route
         path="/login" exact
         render={
@@ -27,7 +27,7 @@ const App = (props) => {
       <Route
         path="/offer/:id" exact
         render={
-          (compProps) => <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} />}
+          (compProps) => <OfferDetails {...compProps} offer={offers[getOfferIndex(compProps.match.params.id)]} onFavoriteClickHandler={getFavoriteOffers} />}
       />
       <Route path="/favorites" exact component={Favorites} />
 
@@ -40,6 +40,7 @@ App.propTypes = {
   setUserData: PropTypes.func.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   offers: PropTypes.array.isRequired,
+  getFavoriteOffers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -50,6 +51,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 const mapDispatchToProps = (dispatch) => ({
   checkAuth: () => dispatch(Operation.checkAuth()),
   setUserData: (data) => dispatch(Operation.loginUser(data)),
+  getFavoriteOffers: () => dispatch(Operation.getFavoriteOffers()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
