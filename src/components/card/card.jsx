@@ -1,5 +1,5 @@
 import {makeFirstCharCapital, getStatus} from '../../util';
-import {CardClasses, OfferType} from '../../constants';
+import {CardClasses, OfferType, CardPicSize, CardType} from '../../constants';
 import {Link} from 'react-router-dom';
 import {ActionCreator, Operation} from '../../store/action/action-creator';
 import {connect} from 'react-redux';
@@ -20,6 +20,8 @@ export const Card = (props) => {
 
   const classes = CardClasses[cardType];
 
+  const picSize = cardType === CardType.FAVORITES ? CardPicSize.FAVORITES : CardPicSize.OFFERS;
+
   return (
     <article className={`${classes.article} place-card`} onMouseEnter={() => mouseEnterHandler(offer.id)} onMouseLeave={() => mouseEnterHandler(-1)}>
       {cardMark(isPremium)}
@@ -30,7 +32,7 @@ export const Card = (props) => {
             offerClickHandler(offer.id);
           }}
         >
-          <img className="place-card__image" src={picture} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={picture} width={picSize.width} height={picSize.height} alt="Place image"/>
         </Link>
       </div>
       <div className={`${classes.div2} place-card__info`}>

@@ -6,6 +6,7 @@ const withReview = (Component) => {
       this._formRef = React.createRef();
       this._textRef = React.createRef();
       this._markRef = React.createRef();
+      this._buttonRef = React.createRef();
 
       this.state = {
         rating: 0,
@@ -25,6 +26,8 @@ const withReview = (Component) => {
         formRef={this._formRef}
         textRef={this._textRef}
         markRef={this._markRef}
+        buttonRef={this._buttonRef}
+        isValid={this.state.isValid}
       />;
     }
 
@@ -44,10 +47,10 @@ const withReview = (Component) => {
       const {name, value} = evt.target;
       this.setState({
         [name]: value,
-      });
+      },
+      () => this._validateReview(this.state)
+      );
       this._validateReview(this.state);
-      this._textRef.current.setCustomValidity(``);
-      this._markRef.current.setCustomValidity(``);
     }
 
     _validateReview(state) {
@@ -60,6 +63,9 @@ const withReview = (Component) => {
           this._textRef.current.setCustomValidity(`Comment should be from 50 to 300 characters`);
         } else {
           this.setState({isValid: true});
+          this._markRef.current.setCustomValidity(``);
+          this._textRef.current.setCustomValidity(``);
+          this._buttonRef.current.disabled = !this.state.isValid;
         }
       }
     }

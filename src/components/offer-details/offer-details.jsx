@@ -135,7 +135,7 @@ export const OfferDetails = (props) => {
                 </p>
               </div>
             </div>
-            <ReviewList reviews={reviews} id={offer.id} onReviewSubmit={onReviewSubmit}/>
+            <ReviewList reviews={reviews} id={offer.id} onReviewSubmit={onReviewSubmit} isAuthorizationRequired={isAuthorizationRequired}/>
           </div>
         </div>
         <section className="property__map map">

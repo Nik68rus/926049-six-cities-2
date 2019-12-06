@@ -17,6 +17,10 @@ const getSortingOrder = (state) => {
   return state.user.sortOrder;
 };
 
+const getReviews = (state) => {
+  return state.data.reviews;
+};
+
 export const getAllFavoriteOffers = (state) => {
   return state.data.allOffers.filter((offer) => offer.isBookmarked === true);
 };
@@ -50,4 +54,9 @@ export const selectSortedOffers = createSelector(
       }
       return offers;
     }
+);
+
+export const selectSortedReviews = createSelector(
+    [getReviews],
+    (reviews) => reviews.sort((a, b) => a.date - b.date)
 );

@@ -1,20 +1,22 @@
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import FavoriteCity from '../favorite-offers-list/favorite-city';
+import FavoriteCity from '../favorite-city/favorite-city';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import {getAllFavoriteOffers} from '../../store/selectors';
 
 export const Favorites = (props) => {
   const {favoriteOffers, user} = props;
 
-  const getCitiesFromFavorite = (offers) => {
+  const getCityNamesFromFavorite = (offers) => {
     return [...new Set(offers.map((offer) => offer.city.name))];
   };
 
-  const favoriteCities = getCitiesFromFavorite(favoriteOffers);
+  const getCityFromName = (cityName) => favoriteOffers.find((offer) => offer.city.name === cityName).city;
+
+  const favoriteCities = getCityNamesFromFavorite(favoriteOffers).map((cityName) => getCityFromName(cityName));
 
   const getCityFavoriteOffers = (city, allFavoriteOffers) => {
-    return allFavoriteOffers.filter((offer) => offer.city.name === city);
+    return allFavoriteOffers.filter((offer) => offer.city.name === city.name);
   };
 
   return favoriteOffers.length === 0 ? <FavoritesEmpty user={user}/> : (
@@ -51,7 +53,7 @@ export const Favorites = (props) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {favoriteCities.map((cityName) => <FavoriteCity key={cityName} name={cityName} offers={getCityFavoriteOffers(cityName, favoriteOffers)} />)}
+              {favoriteCities.map((city) => <FavoriteCity key={city.name} city={city} offers={getCityFavoriteOffers(city, favoriteOffers)} />)}
             </ul>
           </section>
         </div>

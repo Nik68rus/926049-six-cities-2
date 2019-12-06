@@ -54,3 +54,14 @@ export const SortType = {
   RATE_DOWN: `Top rated first`,
 };
 
+export const CardPicSize = {
+  FAVORITES: {
+    width: 150,
+    height: 110,
+  },
+  OFFERS: {
+    width: 260,
+    height: 200,
+  },
+};
+
