@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Favorite city correctly renders after relaunch 1`] = `
+<li
+  className="favorites__locations-items"
+>
+  <div
+    className="favorites__locations locations locations--current"
+  >
+    <div
+      className="locations__item"
+    />
+  </div>
+  <div
+    className="favorites__places"
+  >
+    <Card
+      cardType="FAVORITES"
+      mouseEnterHandler={[Function]}
+      offer={
+        Object {
+          "bedrooms": 3,
+          "city": Object {
+            "location": Object {
+              "latitude": 52.370216,
+              "longitude": 4.895168,
+              "zoom": 10,
+            },
+            "name": "Amsterdam",
+          },
+          "coords": Array [
+            52.35514938496378,
+            4.673877537499948,
+          ],
+          "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+          "goods": Array [
+            "Heating",
+            "Kitchen",
+            "Cable TV",
+            "Washing machine",
+            "Coffee machine",
+            "Dishwasher",
+          ],
+          "host": Object {
+            "avatar": "img/1.png",
+            "id": 0,
+            "isPro": false,
+            "name": "Angelina",
+          },
+          "id": 0,
+          "isBookmarked": false,
+          "isPremium": false,
+          "locationZoom": 8,
+          "maxAdults": 4,
+          "photos": Array [
+            "img/1.png",
+            "img/2.png",
+          ],
+          "picture": "img/1.png",
+          "price": 120,
+          "rate": 4.8,
+          "title": "Beautiful & luxurious studio at great location",
+          "type": "apartment",
+        }
+      }
+    />
+  </div>
+</li>
+`;

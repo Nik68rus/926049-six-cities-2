@@ -5,10 +5,10 @@ import {OfferType, CardType} from '../../constants';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
-import withActiveItem from '../../hocs/with-active-item';
+import withActiveCard from '../../hocs/with-active-card';
 import {Operation} from '../../store/action/action-creator';
 
-const OffersListWrapped = withActiveItem(OffersList);
+const OffersListWrapped = withActiveCard(OffersList);
 
 export const OfferDetails = (props) => {
   const {offer, isFavorite, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit, onBookmarkClickHandler, onFavoriteClickHandler} = props;

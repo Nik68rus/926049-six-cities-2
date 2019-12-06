@@ -1,5 +1,5 @@
-const withActiveItem = (Component) => {
-  class WithActiveItem extends React.PureComponent {
+const withActiveCard = (Component) => {
+  class WithActiveCard extends React.PureComponent {
     constructor(props) {
       super(props);
 
@@ -25,7 +25,7 @@ const withActiveItem = (Component) => {
     }
   }
 
-  return WithActiveItem;
+  return WithActiveCard;
 };
 
-export default withActiveItem;
+export default withActiveCard;

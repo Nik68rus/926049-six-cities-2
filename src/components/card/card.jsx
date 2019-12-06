@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {ActionCreator, Operation} from '../../store/action/action-creator';
 import {connect} from 'react-redux';
 
-export const Card = (props) => {
+const Card = (props) => {
   const {offer, mouseEnterHandler, cardType, offerClickHandler, onBookmarkClickHandler, isFavorite} = props;
   const {title, picture, type, price, rate, isPremium} = offer;
 
@@ -98,4 +98,5 @@ const mapDispatchToProps = (dispatch) => ({
   onBookmarkClickHandler: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
 });
 
+export {Card};
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

@@ -17,6 +17,7 @@ const App = (props) => {
   if (isAuthorizationRequired) {
     checkAuth();
   }
+
   return <>
     <Switch>
       <Route path="/" exact render={(compProps) => <MainScreen {...compProps} onFavoriteClickHandler={getFavoriteOffers} />} />

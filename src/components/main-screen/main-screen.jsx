@@ -2,17 +2,19 @@ import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import CityList from '../city-list/city-list';
 import {connect} from 'react-redux';
-import withActiveItem from '../../hocs/with-active-item';
+import withActiveCard from '../../hocs/with-active-card';
+import withActiveCity from '../../hocs/with-active-city';
 import {Link} from 'react-router-dom';
-import {CardType} from '../../constants';
+import {CardType, EmptyPageCities} from '../../constants';
 import Sorting from '../sorting/sorting';
 import withVisibilityStatus from '../../hocs/with-visibility-status';
 import {selectSortedOffers} from '../../store/selectors';
 import MainEmpty from '../main-empty/main-empty';
 import {getUserAvatar} from '../../util';
 
-const OffersListWrapped = withActiveItem(OffersList);
+const OffersListWrapped = withActiveCard(OffersList);
 const SortingWrapped = withVisibilityStatus(Sorting);
+const MainEmptyWrapped = withActiveCity(MainEmpty);
 
 const MainScreen = (props) => {
   const {isAuthorizationRequired, isOffersLoaded, user, isUserStateDefined, city, offers, activePin, allOffers, onFavoriteClickHandler} = props;
@@ -77,7 +79,7 @@ const MainScreen = (props) => {
             </div>
           </div>
         </main>
-      ) : <MainEmpty />}
+      ) : <MainEmptyWrapped cityList={EmptyPageCities} />}
     </div>;
   }
 };

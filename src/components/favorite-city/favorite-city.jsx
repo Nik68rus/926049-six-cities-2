@@ -23,9 +23,12 @@ const FavoriteCity = (props) => {
 };
 
 FavoriteCity.propTypes = {
-  city: PropTypes.shape({}).isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   offers: PropTypes.array.isRequired,
   allOffers: PropTypes.array.isRequired,
+  cityClickHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
