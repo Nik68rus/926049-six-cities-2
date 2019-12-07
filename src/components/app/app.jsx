@@ -7,7 +7,7 @@ import withUserData from '../../hocs/with-user-data';
 import OfferDetails from '../offer-details/offer-details';
 import Favorites from '../favorites/favorites';
 
-const App = (props) => {
+export const App = (props) => {
   const {setUserData, checkAuth, isAuthorizationRequired, offers, getFavoriteOffers} = props;
 
   const getOfferIndex = (id) => offers.map((offer) => offer.id).indexOf(+id);
