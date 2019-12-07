@@ -1,6 +1,6 @@
 import Review from '../review/review';
 import ReviewForm from '../review-form/review-form';
-import withReview from '../../hocs/with-review';
+import withReview from '../../hocs/with-review/with-review';
 
 const ReviewFormWrapped = withReview(ReviewForm);
 

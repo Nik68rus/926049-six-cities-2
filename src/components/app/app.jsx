@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Operation} from '../../store/action/action-creator';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import SignIn from '../sign-in/sign-in';
-import withUserData from '../../hocs/with-user-data';
+import withUserData from '../../hocs/with-user-data/with-user-data';
 import OfferDetails from '../offer-details/offer-details';
 import Favorites from '../favorites/favorites';
 

@@ -1,4 +1,4 @@
-import {EmptyPageCities} from '../constants';
+import {EmptyPageCities} from '../../constants';
 
 const withActiveCity = (Component) => {
   class WithActiveCity extends React.PureComponent {

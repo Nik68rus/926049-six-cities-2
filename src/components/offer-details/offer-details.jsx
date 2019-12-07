@@ -5,7 +5,7 @@ import {OfferType, CardType} from '../../constants';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
-import withActiveCard from '../../hocs/with-active-card';
+import withActiveCard from '../../hocs/with-active-card/with-active-card';
 import {Operation} from '../../store/action/action-creator';
 
 const OffersListWrapped = withActiveCard(OffersList);
