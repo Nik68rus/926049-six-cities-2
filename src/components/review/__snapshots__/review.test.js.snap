@@ -21,7 +21,7 @@ exports[`Review correctly renders after relaunch 1`] = `
     <span
       className="reviews__user-name"
     >
-      Oliver.conner
+      Max
     </span>
   </div>
   <div

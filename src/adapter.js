@@ -1,6 +1,6 @@
 export default class Adapter {
   static getOffers(offers) {
-    return offers.map(Adapter.getOffer);
+    return offers instanceof Array ? offers.map(Adapter.getOffer) : [];
   }
 
   static getOffer(offer) {

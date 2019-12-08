@@ -63,10 +63,10 @@ const Operation = {
   loadOffers: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
     .then((response) => {
-      if (response.data.length > 0) {
-        const adoptedData = Adapter.getOffers(response.data);
-        dispatch(ActionCreator.loadOffers(adoptedData));
-        dispatch(ActionCreator.initDataState());
+      const adoptedData = Adapter.getOffers(response.data);
+      dispatch(ActionCreator.loadOffers(adoptedData));
+      dispatch(ActionCreator.initDataState());
+      if (adoptedData.length > 0) {
         dispatch(ActionCreator.changeCity(adoptedData[0].city));
         dispatch(ActionCreator.getOffers(adoptedData, adoptedData[0].city));
         dispatch(ActionCreator.initUserState());
@@ -109,8 +109,8 @@ const Operation = {
   getFavoriteOffers: () => (dispatch, _, api) => {
     return api.get(`/favorite`)
     .then((response) => {
-      if (response.data.length > 0) {
-        const adoptedData = Adapter.getOffers(response.data);
+      const adoptedData = Adapter.getOffers(response.data);
+      if (adoptedData.length > 0) {
         dispatch(ActionCreator.updateOffers(adoptedData));
       }
     });
