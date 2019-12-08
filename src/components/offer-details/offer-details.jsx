@@ -11,7 +11,7 @@ import {Operation} from '../../store/action/action-creator';
 const OffersListWrapped = withActiveCard(OffersList);
 
 export const OfferDetails = (props) => {
-  const {offer, isFavorite, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit, onBookmarkClickHandler, onFavoriteClickHandler} = props;
+  const {offer, isFavorite, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit, onBookmarkClick, onFavoriteClickHandler} = props;
   const {id, title, price, rate, isPremium, photos, type, bedrooms, description, host, goods, maxAdults} = offer;
 
   const getNeighborOffers = (qtty) => {
@@ -77,7 +77,7 @@ export const OfferDetails = (props) => {
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className={bookmarkCard(isFavorite)} type="button" onClick={() => onBookmarkClickHandler(id, getStatus(isFavorite))}>
+              <button className={bookmarkCard(isFavorite)} type="button" onClick={() => onBookmarkClick(id, getStatus(isFavorite))}>
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -183,11 +183,13 @@ OfferDetails.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
-  city: PropTypes.shape({}).isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   activePin: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
-  onBookmarkClickHandler: PropTypes.func.isRequired,
+  onBookmarkClick: PropTypes.func.isRequired,
   onFavoriteClickHandler: PropTypes.func.isRequired,
 };
 
@@ -207,7 +209,7 @@ const mapDispatchToProps = (dispatch) => ({
   onReviewSubmit: (id, review) => {
     dispatch(Operation.postReview(id, review));
   },
-  onBookmarkClickHandler: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
+  onBookmarkClick: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

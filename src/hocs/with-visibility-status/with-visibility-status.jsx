@@ -7,21 +7,21 @@ const withVisibilityStatus = (Component) => {
         visible: false,
       };
 
-      this._sortTypeClickHandler = this._sortTypeClickHandler.bind(this);
+      this._handleSortTypeClick = this._handleSortTypeClick.bind(this);
+    }
+
+    _handleSortTypeClick() {
+      this.setState({
+        visible: !this.state.visible,
+      });
     }
 
     render() {
       return <Component
         {...this.props}
         isVisible={this.state.visible}
-        sortClickHandler={this._sortTypeClickHandler}
+        sortClickHandler={this._handleSortTypeClick}
       />;
-    }
-
-    _sortTypeClickHandler() {
-      this.setState({
-        visible: !this.state.visible,
-      });
     }
   }
 

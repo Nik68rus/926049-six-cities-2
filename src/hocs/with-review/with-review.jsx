@@ -14,24 +14,11 @@ const withReview = (Component) => {
         isValid: false,
       };
 
-      this._submitHandler = this._submitHandler.bind(this);
-      this._inputHandler = this._inputHandler.bind(this);
+      this._handleFormSubmit = this._handleFormSubmit.bind(this);
+      this._handleInputChange = this._handleInputChange.bind(this);
     }
 
-    render() {
-      return <Component
-        {...this.props}
-        onSubmit={this._submitHandler}
-        onInput={this._inputHandler}
-        formRef={this._formRef}
-        textRef={this._textRef}
-        markRef={this._markRef}
-        buttonRef={this._buttonRef}
-        isValid={this.state.isValid}
-      />;
-    }
-
-    _submitHandler(evt) {
+    _handleFormSubmit(evt) {
       const {id, onReviewSubmit} = this.props;
 
       evt.preventDefault();
@@ -43,7 +30,7 @@ const withReview = (Component) => {
       }
     }
 
-    _inputHandler(evt) {
+    _handleInputChange(evt) {
       const {name, value} = evt.target;
       this.setState({
         [name]: value,
@@ -79,6 +66,19 @@ const withReview = (Component) => {
       this._markRef.current.setCustomValidity(``);
       this._textRef.current.setCustomValidity(``);
       this._formRef.current.reset();
+    }
+
+    render() {
+      return <Component
+        {...this.props}
+        onSubmit={this._handleFormSubmit}
+        onInput={this._handleInputChange}
+        formRef={this._formRef}
+        textRef={this._textRef}
+        markRef={this._markRef}
+        buttonRef={this._buttonRef}
+        isValid={this.state.isValid}
+      />;
     }
   }
 

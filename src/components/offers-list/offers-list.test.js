@@ -11,7 +11,7 @@ it(`Offers list correctly renders after relaunch`, () => {
       cardType={CardType.CITIES}
       activeCard={0}
       offers={[offer]}
-      mouseEnterHandler={jest.fn()}
+      onCardMouseEnter={jest.fn()}
       sortOrder={SortType.POPULAR}
     />)
   .toJSON();

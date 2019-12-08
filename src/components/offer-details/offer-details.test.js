@@ -22,7 +22,7 @@ it(`Offer details correctly renders after relaunch`, () => {
       activePin={0}
       reviews={[review]}
       onReviewSubmit={jest.fn()}
-      onBookmarkClickHandler={jest.fn()}
+      onBookmarkClick={jest.fn()}
       onFavoriteClickHandler={jest.fn()}
     />)
   .toJSON();

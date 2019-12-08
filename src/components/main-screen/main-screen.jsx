@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import withActiveCard from '../../hocs/with-active-card/with-active-card';
 import withActiveCity from '../../hocs/with-active-city/with-active-city';
 import {Link} from 'react-router-dom';
-import {CardType, EmptyPageCities} from '../../constants';
+import {CardType, EMPTY_PAGE_CITIES} from '../../constants';
 import Sorting from '../sorting/sorting';
 import withVisibilityStatus from '../../hocs/with-visibility-status/with-visibility-status';
 import {selectSortedOffers} from '../../store/selectors';
@@ -79,7 +79,7 @@ const MainScreen = (props) => {
             </div>
           </div>
         </main>
-      ) : <MainEmptyWrapped cityList={EmptyPageCities} />}
+      ) : <MainEmptyWrapped cityList={EMPTY_PAGE_CITIES} />}
     </div>;
   }
 };

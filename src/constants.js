@@ -9,7 +9,7 @@ export const OfferType = {
   HOTEL: `hotel`,
 };
 
-export const EmptyPageCities = [
+export const EMPTY_PAGE_CITIES = [
   `Paris`,
   `Cologne`,
   `Brussels`,

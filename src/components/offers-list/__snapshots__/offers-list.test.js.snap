@@ -6,7 +6,6 @@ exports[`Offers list correctly renders after relaunch 1`] = `
 >
   <Card
     cardType="CITIES"
-    mouseEnterHandler={[MockFunction]}
     offer={
       Object {
         "bedrooms": 3,
@@ -53,6 +52,7 @@ exports[`Offers list correctly renders after relaunch 1`] = `
         "type": "apartment",
       }
     }
+    onCardMouseEnter={[MockFunction]}
   />
 </div>
 `;

@@ -13,9 +13,9 @@ it(`Card correctly renders after relaunch`, () => {
       cardType={CardType.CITIES}
       offer={offer}
       id={0}
-      mouseEnterHandler={jest.fn()}
-      offerClickHandler={jest.fn()}
-      onBookmarkClickHandler={jest.fn()}
+      onCardMouseEnter={jest.fn()}
+      onOfferClick={jest.fn()}
+      onBookmarkClick={jest.fn()}
       isFavorite={false}
     />)
   .toJSON();

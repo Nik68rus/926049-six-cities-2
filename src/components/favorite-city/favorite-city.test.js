@@ -14,7 +14,7 @@ it(`Favorite city correctly renders after relaunch`, () => {
       city={city}
       offers={[offer]}
       allOffers={[offer]}
-      cityClickHandler={jest.fn()}
+      onCityClick={jest.fn()}
     />)
   .toJSON();
 

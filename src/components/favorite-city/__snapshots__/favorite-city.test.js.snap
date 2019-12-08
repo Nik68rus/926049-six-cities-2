@@ -16,7 +16,6 @@ exports[`Favorite city correctly renders after relaunch 1`] = `
   >
     <Card
       cardType="FAVORITES"
-      mouseEnterHandler={[Function]}
       offer={
         Object {
           "bedrooms": 3,
@@ -63,6 +62,7 @@ exports[`Favorite city correctly renders after relaunch 1`] = `
           "type": "apartment",
         }
       }
+      onCardMouseEnter={[Function]}
     />
   </div>
 </li>

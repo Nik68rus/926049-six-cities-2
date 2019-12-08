@@ -12,7 +12,7 @@ it(`City list correctly renders after relaunch`, () => {
       currentCity={city}
       cities={[city]}
       allOffers={[offer]}
-      changeCityClickHandler={jest.fn()}
+      onCityChange={jest.fn()}
     />)
   .toJSON();
 

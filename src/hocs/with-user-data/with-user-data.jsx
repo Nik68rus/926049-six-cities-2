@@ -8,30 +8,30 @@ const withUserData = (Component) => {
         password: ``,
       };
 
-      this._formSubmitHandler = this._formSubmitHandler.bind(this);
-      this._inputHandler = this._inputHandler.bind(this);
+      this._handleFormSubmit = this._handleFormSubmit.bind(this);
+      this._handleInputChange = this._handleInputChange.bind(this);
     }
 
-    render() {
-      return <Component
-        {...this.props}
-        onSubmit={this._formSubmitHandler}
-        onInput={this._inputHandler}
-      />;
-    }
-
-    _formSubmitHandler(evt) {
+    _handleFormSubmit(evt) {
       const {onSubmit, history} = this.props;
       evt.preventDefault();
       onSubmit(this.state);
       history.push(`/`);
     }
 
-    _inputHandler(evt) {
+    _handleInputChange(evt) {
       const {name, value} = evt.target;
       this.setState({
         [name]: value,
       });
+    }
+
+    render() {
+      return <Component
+        {...this.props}
+        onSubmit={this._handleFormSubmit}
+        onInput={this._handleInputChange}
+      />;
     }
   }
 

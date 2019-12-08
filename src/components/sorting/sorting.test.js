@@ -7,7 +7,7 @@ it(`Sorting correctly renders after relaunch`, () => {
   const sorting = renderer
     .create(<Sorting
       sortOrder={SortType.POPULAR}
-      setSortOrder={jest.fn()}
+      onSortOrderChoice={jest.fn()}
       isVisible={false}
       sortClickHandler={jest.fn()}
     />)

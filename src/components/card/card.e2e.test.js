@@ -5,18 +5,18 @@ import {Card} from '../card/card';
 
 it(`Correct info in callbacks in Card component`, () => {
 
-  const mouseEnterHandler = jest.fn();
-  const offerClickHandler = jest.fn();
-  const bookmarkClickHandler = jest.fn();
+  const onCardMouseEnter = jest.fn();
+  const onOfferClick = jest.fn();
+  const onBookmarkClick = jest.fn();
 
   const card = shallow(
       <Card
         cardType={CardType.CITIES}
         offer={offer}
         id={0}
-        mouseEnterHandler={mouseEnterHandler}
-        offerClickHandler={offerClickHandler}
-        onBookmarkClickHandler={bookmarkClickHandler}
+        onCardMouseEnter={onCardMouseEnter}
+        onOfferClick={onOfferClick}
+        onBookmarkClick={onBookmarkClick}
         isFavorite={false}
       />
   );
@@ -27,7 +27,7 @@ it(`Correct info in callbacks in Card component`, () => {
   cardNode.simulate(`mouseEnter`);
   link.simulate(`click`);
   bookmark.simulate(`click`);
-  expect(mouseEnterHandler).toHaveBeenCalledWith(0);
-  expect(offerClickHandler).toHaveBeenCalledWith(0);
-  expect(bookmarkClickHandler).toHaveBeenCalledWith(0, 1);
+  expect(onCardMouseEnter).toHaveBeenCalledWith(0);
+  expect(onOfferClick).toHaveBeenCalledWith(0);
+  expect(onBookmarkClick).toHaveBeenCalledWith(0, 1);
 });

@@ -1,4 +1,4 @@
-import {EmptyPageCities} from '../../constants';
+import {EMPTY_PAGE_CITIES} from '../../constants';
 
 const withActiveCity = (Component) => {
   class WithActiveCity extends React.PureComponent {
@@ -6,24 +6,24 @@ const withActiveCity = (Component) => {
       super(props);
 
       this.state = {
-        activeCity: EmptyPageCities[0],
+        activeCity: EMPTY_PAGE_CITIES[0],
       };
 
-      this._cityClickHandler = this._cityClickHandler.bind(this);
+      this._handleCityClick = this._handleCityClick.bind(this);
+    }
+
+    _handleCityClick(city) {
+      this.setState({
+        activeCity: city,
+      });
     }
 
     render() {
       return <Component
         {...this.props}
         activeCity={this.state.activeCity}
-        cityClickHandler={this._cityClickHandler}
+        cityClickHandler={this._handleCityClick}
       />;
-    }
-
-    _cityClickHandler(city) {
-      this.setState({
-        activeCity: city,
-      });
     }
   }
 

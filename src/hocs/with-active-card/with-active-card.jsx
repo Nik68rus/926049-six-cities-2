@@ -7,21 +7,21 @@ const withActiveCard = (Component) => {
         activeCard: -1,
       };
 
-      this._offerMouseEnterHandler = this._offerMouseEnterHandler.bind(this);
+      this._handleOfferMouseEnter = this._handleOfferMouseEnter.bind(this);
+    }
+
+    _handleOfferMouseEnter(id) {
+      this.setState({
+        activeCard: id,
+      });
     }
 
     render() {
       return <Component
         {...this.props}
         activeCard={this.state.activeCard}
-        mouseEnterHandler={this._offerMouseEnterHandler}
+        mouseEnterHandler={this._handleOfferMouseEnter}
       />;
-    }
-
-    _offerMouseEnterHandler(id) {
-      this.setState({
-        activeCard: id,
-      });
     }
   }
 

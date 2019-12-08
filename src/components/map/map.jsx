@@ -16,8 +16,15 @@ class Map extends React.PureComponent {
     this._markers = [];
   }
 
-  render() {
-    return <div id="map" style={{height: 100 + `%`}} ref={this._mapRef}></div>;
+  componentDidMount() {
+    const {city, offers} = this.props;
+    this._mapInit(city, offers, this._mapRef.current);
+  }
+
+  componentDidUpdate() {
+    const {city, offers, activePin} = this.props;
+    this._renderOffers(offers, activePin);
+    this._map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
   }
 
   _mapInit(currentCity, offersList, container) {
@@ -68,15 +75,8 @@ class Map extends React.PureComponent {
     .addTo(this._map);
   }
 
-  componentDidMount() {
-    const {city, offers} = this.props;
-    this._mapInit(city, offers, this._mapRef.current);
-  }
-
-  componentDidUpdate() {
-    const {city, offers, activePin} = this.props;
-    this._renderOffers(offers, activePin);
-    this._map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+  render() {
+    return <div id="map" style={{height: 100 + `%`}} ref={this._mapRef}></div>;
   }
 }
 

@@ -9,7 +9,7 @@ it(`Sorting visibility status should correctly changes on click`, () => {
 
   const sorting = mount(<MockSortingWrapped
     sortOrder={`Popular`}
-    setSortOrder={jest.fn()}
+    onSortOrderChoice={jest.fn()}
     isVisible={false}
     sortingClickHandler={sortingClickHandler}
   />);
