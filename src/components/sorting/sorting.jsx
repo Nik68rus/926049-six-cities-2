@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action/action-creator';
 
 export const Sorting = (props) => {
-  const {sortOrder, setSortOrder, isVisible, sortClickHandler} = props;
+  const {sortOrder, onSortOrderChoice, isVisible, sortClickHandler} = props;
   const sortNames = Object.keys(SortType).map((it) => SortType[it]);
   const checkActivity = (it) => it === sortOrder ? `places__option places__option--active` : `places__option `;
   const checkVisibility = () => isVisible ? `places__options places__options--custom places__options--opened` : `places__options places__options--custom`;
@@ -23,7 +23,7 @@ export const Sorting = (props) => {
             className={checkActivity(it)}
             tabIndex="0"
             onClick={() => {
-              setSortOrder(it);
+              onSortOrderChoice(it);
               sortClickHandler();
             }}
           >
@@ -36,7 +36,7 @@ export const Sorting = (props) => {
 
 Sorting.propTypes = {
   sortOrder: PropTypes.string.isRequired,
-  setSortOrder: PropTypes.func.isRequired,
+  onSortOrderChoice: PropTypes.func.isRequired,
   isVisible: PropTypes.bool.isRequired,
   sortClickHandler: PropTypes.func.isRequired,
 };
@@ -46,7 +46,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setSortOrder: (order) => dispatch(ActionCreator.changeSorting(order)),
+  onSortOrderChoice: (order) => dispatch(ActionCreator.changeSorting(order)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sorting);

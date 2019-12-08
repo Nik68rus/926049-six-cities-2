@@ -51,17 +51,22 @@ const ActionCreator = {
   setActivePin: (id) => ({
     type: ActionType.SET_ACTIVE_PIN,
     payload: id,
-  })
+  }),
+
+  updateOffers: (offers) => ({
+    type: ActionType.UPDATE_OFFERS,
+    payload: offers,
+  }),
 };
 
 const Operation = {
   loadOffers: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
     .then((response) => {
-      if (response.data.length > 0) {
-        const adoptedData = Adapter.getOffers(response.data);
-        dispatch(ActionCreator.loadOffers(adoptedData));
-        dispatch(ActionCreator.initDataState());
+      const adoptedData = Adapter.getOffers(response.data);
+      dispatch(ActionCreator.loadOffers(adoptedData));
+      dispatch(ActionCreator.initDataState());
+      if (adoptedData.length > 0) {
         dispatch(ActionCreator.changeCity(adoptedData[0].city));
         dispatch(ActionCreator.getOffers(adoptedData, adoptedData[0].city));
         dispatch(ActionCreator.initUserState());
@@ -98,6 +103,25 @@ const Operation = {
     return api.post(`/comments/${id}`, review)
     .then((response) => {
       dispatch(ActionCreator.loadReviews(Adapter.getReviews(response.data)));
+    });
+  },
+
+  getFavoriteOffers: () => (dispatch, _, api) => {
+    return api.get(`/favorite`)
+    .then((response) => {
+      const adoptedData = Adapter.getOffers(response.data);
+      if (adoptedData.length > 0) {
+        dispatch(ActionCreator.updateOffers(adoptedData));
+      }
+    });
+  },
+
+  changeOfferStatus: (id, status) => (dispatch, _, api) => {
+    return api.post(`/favorite/${id}/${status}`)
+    .then((response) => {
+      if (response.data) {
+        dispatch(ActionCreator.updateOffers([Adapter.getOffer(response.data)]));
+      }
     });
   },
 };

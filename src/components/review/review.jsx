@@ -1,6 +1,8 @@
+import {getFormatedDate} from "../../util";
+
 const Review = (props) => {
   const {review} = props;
-  const {user, rating, comment} = review;
+  const {user, rating, comment, date} = review;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -21,7 +23,7 @@ const Review = (props) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={date}>{getFormatedDate(date)}</time>
       </div>
     </li>
   );
@@ -38,6 +40,7 @@ Review.propTypes = {
     }).isRequired,
     rating: PropTypes.number.isRequired,
     comment: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
   }).isRequired,
 };
 

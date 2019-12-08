@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main screen correctly renders after relaunch 1`] = `
+<div
+  className="page page--gray page--main"
+>
+  <header
+    className="header"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="header__wrapper"
+      >
+        <div
+          className="header__left"
+        />
+        <nav
+          className="header__nav"
+        >
+          <ul
+            className="header__nav-list"
+          >
+            <li
+              className="header__nav-item user"
+            />
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main
+    className="page__main page__main--index"
+  >
+    <h1
+      className="visually-hidden"
+    >
+      Cities
+    </h1>
+    <div
+      className="tabs"
+    >
+      <section
+        className="locations container"
+      >
+        <CityList />
+      </section>
+    </div>
+    <div
+      className="cities"
+    >
+      <div
+        className="cities__places-container container"
+      >
+        <section
+          className="cities__places places"
+        >
+          <h2
+            className="visually-hidden"
+          >
+            Places
+          </h2>
+          <b
+            className="places__found"
+          >
+            1
+             
+            place
+             to stay in 
+            Amsterdam
+          </b>
+          <Sorting
+            isVisible={false}
+            sortClickHandler={[Function]}
+          />
+          <OffersList
+            activeCard={-1}
+            cardType="CITIES"
+            mouseEnterHandler={[Function]}
+            offers={
+              Array [
+                Object {
+                  "bedrooms": 3,
+                  "city": Object {
+                    "location": Object {
+                      "latitude": 52.370216,
+                      "longitude": 4.895168,
+                      "zoom": 10,
+                    },
+                    "name": "Amsterdam",
+                  },
+                  "coords": Array [
+                    52.35514938496378,
+                    4.673877537499948,
+                  ],
+                  "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+                  "goods": Array [
+                    "Heating",
+                    "Kitchen",
+                    "Cable TV",
+                    "Washing machine",
+                    "Coffee machine",
+                    "Dishwasher",
+                  ],
+                  "host": Object {
+                    "avatar": "img/1.png",
+                    "id": 0,
+                    "isPro": false,
+                    "name": "Angelina",
+                  },
+                  "id": 0,
+                  "isBookmarked": false,
+                  "isPremium": false,
+                  "locationZoom": 8,
+                  "maxAdults": 4,
+                  "photos": Array [
+                    "img/1.png",
+                    "img/2.png",
+                  ],
+                  "picture": "img/1.png",
+                  "price": 120,
+                  "rate": 4.8,
+                  "title": "Beautiful & luxurious studio at great location",
+                  "type": "apartment",
+                },
+              ]
+            }
+          />
+        </section>
+        <div
+          className="cities__right-section"
+        >
+          <section
+            className="cities__map map"
+          >
+            <Map
+              activePin={0}
+              city={
+                Object {
+                  "location": Object {
+                    "latitude": 52.370216,
+                    "longitude": 4.895168,
+                    "zoom": 10,
+                  },
+                  "name": "Amsterdam",
+                }
+              }
+              offers={
+                Array [
+                  Object {
+                    "bedrooms": 3,
+                    "city": Object {
+                      "location": Object {
+                        "latitude": 52.370216,
+                        "longitude": 4.895168,
+                        "zoom": 10,
+                      },
+                      "name": "Amsterdam",
+                    },
+                    "coords": Array [
+                      52.35514938496378,
+                      4.673877537499948,
+                    ],
+                    "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+                    "goods": Array [
+                      "Heating",
+                      "Kitchen",
+                      "Cable TV",
+                      "Washing machine",
+                      "Coffee machine",
+                      "Dishwasher",
+                    ],
+                    "host": Object {
+                      "avatar": "img/1.png",
+                      "id": 0,
+                      "isPro": false,
+                      "name": "Angelina",
+                    },
+                    "id": 0,
+                    "isBookmarked": false,
+                    "isPremium": false,
+                    "locationZoom": 8,
+                    "maxAdults": 4,
+                    "photos": Array [
+                      "img/1.png",
+                      "img/2.png",
+                    ],
+                    "picture": "img/1.png",
+                    "price": 120,
+                    "rate": 4.8,
+                    "title": "Beautiful & luxurious studio at great location",
+                    "type": "apartment",
+                  },
+                ]
+              }
+            />
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+`;

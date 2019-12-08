@@ -1,17 +1,17 @@
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {makeFirstCharCapital} from '../../util';
+import {makeFirstCharCapital, getStatus, getUserAvatar} from '../../util';
 import {OfferType, CardType} from '../../constants';
 import ReviewList from '../review-list/review-list';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
-import withActiveItem from '../../hocs/with-active-item';
+import withActiveCard from '../../hocs/with-active-card/with-active-card';
 import {Operation} from '../../store/action/action-creator';
 
-const OffersListWrapped = withActiveItem(OffersList);
+const OffersListWrapped = withActiveCard(OffersList);
 
 export const OfferDetails = (props) => {
-  const {offer, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit} = props;
+  const {offer, isFavorite, offers, user, isAuthorizationRequired, city, activePin, reviews, onReviewSubmit, onBookmarkClick, onFavoriteClickHandler} = props;
   const {id, title, price, rate, isPremium, photos, type, bedrooms, description, host, goods, maxAdults} = offer;
 
   const getNeighborOffers = (qtty) => {
@@ -25,6 +25,10 @@ export const OfferDetails = (props) => {
   };
 
   const neighborOffers = getNeighborOffers(3);
+
+  const bookmarkCard = (bookmark) => {
+    return bookmark ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`;
+  };
 
   return <div className="page">
     <header className="header">
@@ -40,9 +44,11 @@ export const OfferDetails = (props) => {
               <li className="header__nav-item user">
                 <Link
                   className="header__nav-link header__nav-link--profile"
-                  to={isAuthorizationRequired ? `/login` : `/favorite`}
+                  to={isAuthorizationRequired ? `/login` : `/favorites`}
+                  onClick={isAuthorizationRequired ? null : onFavoriteClickHandler}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
+                    {getUserAvatar(isAuthorizationRequired, user)}
                   </div>
                   <span className="header__user-name user__name">{isAuthorizationRequired ? `Sign In` : user.email}</span>
                 </Link>
@@ -71,7 +77,7 @@ export const OfferDetails = (props) => {
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <button className={bookmarkCard(isFavorite)} type="button" onClick={() => onBookmarkClick(id, getStatus(isFavorite))}>
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -129,7 +135,7 @@ export const OfferDetails = (props) => {
                 </p>
               </div>
             </div>
-            <ReviewList reviews={reviews} id={offer.id} onReviewSubmit={onReviewSubmit}/>
+            <ReviewList reviews={reviews} id={offer.id} onReviewSubmit={onReviewSubmit} isAuthorizationRequired={isAuthorizationRequired}/>
           </div>
         </div>
         <section className="property__map map">
@@ -158,6 +164,7 @@ OfferDetails.propTypes = {
     price: PropTypes.number.isRequired,
     rate: PropTypes.number.isRequired,
     isPremium: PropTypes.bool.isRequired,
+    isBookmarked: PropTypes.bool.isRequired,
     photos: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
     bedrooms: PropTypes.number.isRequired,
@@ -171,14 +178,19 @@ OfferDetails.propTypes = {
       avatar: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
-  city: PropTypes.shape({}).isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   activePin: PropTypes.number.isRequired,
   reviews: PropTypes.array.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
+  onBookmarkClick: PropTypes.func.isRequired,
+  onFavoriteClickHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -188,12 +200,16 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   offers: state.user.cityOffers,
   activePin: state.user.activePinID,
   reviews: state.data.reviews,
+  isFavorite: state.data.allOffers.find((it) => {
+    return it.id === ownProps.offer.id;
+  }).isBookmarked,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onReviewSubmit: (id, review) => {
     dispatch(Operation.postReview(id, review));
-  }
+  },
+  onBookmarkClick: (id, status) => dispatch(Operation.changeOfferStatus(id, status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Offers list correctly renders after relaunch 1`] = `
+<div
+  className="cities__places-list places__list tabs__content"
+>
+  <Card
+    cardType="CITIES"
+    offer={
+      Object {
+        "bedrooms": 3,
+        "city": Object {
+          "location": Object {
+            "latitude": 52.370216,
+            "longitude": 4.895168,
+            "zoom": 10,
+          },
+          "name": "Amsterdam",
+        },
+        "coords": Array [
+          52.35514938496378,
+          4.673877537499948,
+        ],
+        "description": "A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.",
+        "goods": Array [
+          "Heating",
+          "Kitchen",
+          "Cable TV",
+          "Washing machine",
+          "Coffee machine",
+          "Dishwasher",
+        ],
+        "host": Object {
+          "avatar": "img/1.png",
+          "id": 0,
+          "isPro": false,
+          "name": "Angelina",
+        },
+        "id": 0,
+        "isBookmarked": false,
+        "isPremium": false,
+        "locationZoom": 8,
+        "maxAdults": 4,
+        "photos": Array [
+          "img/1.png",
+          "img/2.png",
+        ],
+        "picture": "img/1.png",
+        "price": 120,
+        "rate": 4.8,
+        "title": "Beautiful & luxurious studio at great location",
+        "type": "apartment",
+      }
+    }
+    onCardMouseEnter={[MockFunction]}
+  />
+</div>
+`;

@@ -1,4 +1,5 @@
 import {ActionType} from '../../../constants';
+import {updateOffers} from '../../../util';
 
 const initialState = {
   allOffers: [],
@@ -19,6 +20,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return Object.assign({}, state, {
         reviews: action.payload,
+      });
+    case ActionType.UPDATE_OFFERS:
+      return Object.assign({}, state, {
+        allOffers: updateOffers(state.allOffers, action.payload),
       });
   }
 

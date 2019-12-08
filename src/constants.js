@@ -9,6 +9,15 @@ export const OfferType = {
   HOTEL: `hotel`,
 };
 
+export const EMPTY_PAGE_CITIES = [
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Amsterdam`,
+  `Hamburg`,
+  `Dusseldorf`,
+];
+
 export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFERS: `GET_OFFERS`,
@@ -20,11 +29,31 @@ export const ActionType = {
   CHANGE_SORTING: `CHANGE_SORTING`,
   SET_ACTIVE_PIN: `SET_ACTIVE_PIN`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  UPDATE_OFFERS: `UPDATE_OFFERS`,
 };
 
 export const CardType = {
-  NEAR: `near`,
-  CITIES: `cities`,
+  NEAR: `NEAR`,
+  CITIES: `CITIES`,
+  FAVORITES: `FAVORITES`,
+};
+
+export const CardClasses = {
+  CITIES: {
+    article: `cities__place-card`,
+    div1: `cities`,
+    div2: ``,
+  },
+  NEAR: {
+    article: `near-places__card`,
+    div1: `near-places`,
+    div2: ``,
+  },
+  FAVORITES: {
+    article: `favorites__card`,
+    div1: `favorites`,
+    div2: `favorites__card-info`,
+  },
 };
 
 export const SortType = {
@@ -32,5 +61,16 @@ export const SortType = {
   PRICE_UP: `Price: low to high`,
   PRICE_DOWN: `Price: high to low`,
   RATE_DOWN: `Top rated first`,
+};
+
+export const CardPicSize = {
+  FAVORITES: {
+    width: 150,
+    height: 110,
+  },
+  OFFERS: {
+    width: 260,
+    height: 200,
+  },
 };
 

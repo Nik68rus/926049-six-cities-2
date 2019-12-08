@@ -7,7 +7,7 @@ import {Operation} from './store/action/action-creator';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
 import {createAPI} from './api';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 
 const history = createBrowserHistory();
@@ -28,9 +28,9 @@ store.dispatch(Operation.loadOffers());
 const init = () => {
   ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
           <App />
-        </BrowserRouter>
+        </Router>
       </Provider>,
       document.querySelector(`#root`)
   );

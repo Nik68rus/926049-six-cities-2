@@ -1,5 +1,5 @@
 const ReviewForm = (props) => {
-  const {onInput, onSubmit, formRef, textRef, markRef} = props;
+  const {onInput, onSubmit, formRef, textRef, markRef, buttonRef, isValid} = props;
   return <form className="reviews__form form" action="#" method="post" onChange={onInput} onSubmit={onSubmit} ref={formRef}>
     <label className="reviews__label form__label" htmlFor="review">Your review</label>
     <div className="reviews__rating-form form__rating">
@@ -43,7 +43,7 @@ const ReviewForm = (props) => {
       <p className="reviews__help">
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
       </p>
-      <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+      <button className="reviews__submit form__submit button" type="submit" disabled={!isValid} ref={buttonRef}>Submit</button>
     </div>
   </form>;
 };
@@ -54,6 +54,8 @@ ReviewForm.propTypes = {
   formRef: PropTypes.shape({current: PropTypes.instanceOf(Element)}),
   textRef: PropTypes.shape({current: PropTypes.instanceOf(Element)}),
   markRef: PropTypes.shape({current: PropTypes.instanceOf(Element)}),
+  buttonRef: PropTypes.shape({current: PropTypes.instanceOf(Element)}),
+  isValid: PropTypes.bool.isRequired,
 };
 
 export default ReviewForm;
