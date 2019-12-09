@@ -22,7 +22,7 @@ const withActiveCity = (Component) => {
       return <Component
         {...this.props}
         activeCity={this.state.activeCity}
-        cityClickHandler={this._handleCityClick}
+        onCityClick={this._handleCityClick}
       />;
     }
   }

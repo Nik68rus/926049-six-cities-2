@@ -1,5 +1,5 @@
 const MainEmpty = (props) => {
-  const {cityList, activeCity, cityClickHandler} = props;
+  const {cityList, activeCity, onCityClick} = props;
   return (
     <main className="page__main page__main--index page__main--index-empty">
       <h1 className="visually-hidden">Cities</h1>
@@ -11,7 +11,7 @@ const MainEmpty = (props) => {
                 <li key={city} className="locations__item">
                   <a className={`locations__item-link tabs__item${city === activeCity ? `  tabs__item--active` : ``}`} href="#" onClick={(evt) => {
                     evt.preventDefault();
-                    cityClickHandler(evt.target.textContent);
+                    onCityClick(evt.target.textContent);
                   }}>
                     <span>{city}</span>
                   </a>
@@ -39,7 +39,7 @@ const MainEmpty = (props) => {
 MainEmpty.propTypes = {
   cityList: PropTypes.array.isRequired,
   activeCity: PropTypes.string.isRequired,
-  cityClickHandler: PropTypes.func.isRequired,
+  onCityClick: PropTypes.func.isRequired,
 };
 
 export default MainEmpty;

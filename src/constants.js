@@ -74,3 +74,13 @@ export const CardPicSize = {
   },
 };
 
+export const ErrorStatus = {
+  NOT_AUTHORIZED: 401,
+};
+
+export const ReviewLength = {
+  MIN: 50,
+  MAX: 300,
+};
+
+

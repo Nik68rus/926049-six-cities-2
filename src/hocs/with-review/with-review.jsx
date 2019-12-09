@@ -1,3 +1,5 @@
+import {ReviewLength} from '../../constants';
+
 const withReview = (Component) => {
   class WithReview extends React.PureComponent {
     constructor(props) {
@@ -45,9 +47,9 @@ const withReview = (Component) => {
         this.setState({isValid: false});
         this._markRef.current.setCustomValidity(`Choose the mark`);
       } else {
-        if (state.review.length < 50 || state.review.length > 300) {
+        if (state.review.length < ReviewLength.MIN || state.review.length > ReviewLength.MAX) {
           this.setState({isValid: false});
-          this._textRef.current.setCustomValidity(`Comment should be from 50 to 300 characters`);
+          this._textRef.current.setCustomValidity(`Comment should be from ${ReviewLength.Min} to ${ReviewLength.MAX} characters`);
         } else {
           this.setState({isValid: true});
           this._markRef.current.setCustomValidity(``);

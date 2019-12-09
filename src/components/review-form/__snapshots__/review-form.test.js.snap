@@ -150,7 +150,8 @@ exports[`Review form correctly renders after relaunch 1`] = `
       <b
         className="reviews__text-amount"
       >
-        50 characters
+        50
+         characters
       </b>
       .
     </p>

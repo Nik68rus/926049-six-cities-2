@@ -11,7 +11,7 @@ it(`Active city on empty page correctly changing`, () => {
   const emptyPage = mount(<MockMainEmptyWrapped
     cityList={EMPTY_PAGE_CITIES}
     activeCity={EMPTY_PAGE_CITIES[0]}
-    cityClickHandler={cityClickHandler}
+    onCityClick={cityClickHandler}
   />);
 
   const cities = emptyPage.find(`.locations__item-link`);

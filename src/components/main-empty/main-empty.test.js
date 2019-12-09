@@ -7,7 +7,7 @@ it(`Empty main page renders after relaunch`, () => {
     .create(<MainEmpty
       cityList={EMPTY_PAGE_CITIES}
       activeCity={EMPTY_PAGE_CITIES[0]}
-      cityClickHandler={jest.fn()}
+      onCityClick={jest.fn()}
     />)
   .toJSON();
 

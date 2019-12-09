@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ActionCreator} from './store/action/action-creator';
+import {ErrorStatus} from './constants';
 
 export const createAPI = (dispatch, login) => {
   const api = axios.create({
@@ -10,7 +11,7 @@ export const createAPI = (dispatch, login) => {
 
   const onSuccess = (response) => response;
   const onFail = (err) => {
-    if (err.response.status === 401) {
+    if (err.response.status === ErrorStatus.NOT_AUTHORIZED) {
       dispatch(ActionCreator.requireAuthorization(true));
       login();
     }
